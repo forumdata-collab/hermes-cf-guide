@@ -1,0 +1,290 @@
+html
+<html lang="zh-CN" dir="ltr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hermes Agent × Cloudflare AI 补充指南 · 免费 AI 管线实战</title>
+<style>
+:root{
+  --bg:#0f1420; --card:#171e2e; --card2:#1d2638; --line:#2a3550;
+  --txt:#e6ebf5; --dim:#93a0bd; --acc:#4ea1ff; --acc2:#38d9a9;
+  --warn:#ffb454; --bad:#ff6b6b; --mono:'SF Mono','JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:16px/1.75 -apple-system,'Segoe UI','PingFang HK','Noto Sans TC',sans-serif;padding-bottom:80px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{padding:48px 0 28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#141b2c 0%,var(--bg) 100%)}
+header .tag{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--acc2);border:1px solid var(--acc2);border-radius:99px;padding:3px 12px;margin-bottom:14px}
+h1{font-size:30px;line-height:1.3;font-weight:800}
+.sub{color:var(--dim);margin-top:10px;font-size:15px}
+nav{position:sticky;top:0;background:rgba(15,20,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10;overflow-x:auto;white-space:nowrap}
+nav a{display:inline-block;color:var(--dim);text-decoration:none;font-size:13.5px;padding:12px 14px}
+nav a:hover{color:var(--acc)}
+main{padding-top:36px}
+h2{font-size:22px;margin:52px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+h3{font-size:17px;margin:26px 0 10px;color:var(--acc)}
+p{margin:10px 0;color:var(--txt)}
+code{font-family:var(--mono);font-size:.88em;background:var(--card2);padding:2px 7px;border-radius:5px;color:var(--acc2)}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;margin:12px 0;font-family:var(--mono);font-size:13px;line-height:1.6}
+pre code{background:none;padding:0;color:var(--txt)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{color:var(--acc);font-weight:600;background:var(--card)}
+tr:nth-child(even) td{background:var(--card)}
+.ok{color:var(--acc2)} .no{color:var(--bad)} .warn{color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:16px 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.box b{display:block;color:var(--acc2);font-size:14px;margin-bottom:6px}
+.box small{color:var(--dim)}
+ul,ol{margin:10px 0 10px 24px}
+li{margin:5px 0}
+.badge{display:inline-block;font-size:11.5px;border-radius:5px;padding:1px 8px;margin-right:6px}
+.b-ok{background:rgba(56,217,169,.15);color:var(--acc2)}
+.b-no{background:rgba(255,107,107,.15);color:var(--bad)}
+.b-warn{background:rgba(255,180,84,.15);color:var(--warn)}
+.pit{background:rgba(255,180,84,.06);border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.link-block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.link-block h3{font-size:15px;font-weight:600;margin-bottom:10px;color:var(--acc2)}
+.link-block .link-row{display:flex;align-items:center;padding:6px 0;font-size:13px;gap:8px}
+.link-block .link-row .label{color:var(--dim);min-width:80px;flex-shrink:0}
+.link-block .link-row a{color:var(--acc);text-decoration:none}
+.link-block .link-row a:hover{text-decoration:underline}
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+@media(max-width:640px){h1{font-size:23px}h2{font-size:19px}}
+</style>
+</head>
+<body>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px"><select onchange="location.href=this.value" style="background:var(--card,#171e2e);color:var(--text,#e8e8e8);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:8px;padding:8px 12px;font-size:13px;font-family:inherit"><option value="https://forumdata-collab.github.io/hermes-cf-guide/en/">English (US)</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/zh-CN/" selected>简体中文</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/zh-TW/">繁體中文（台灣）</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/">繁體中文（香港）</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/ar/">العربية</option></select><a href="https://ko-fi.com/forumdata" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:12px 28px;background:#ff5e5b;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.47.06 8.529-1.723 8.649-4.916zm-11.638 8.978c-2.252 0-4.078-1.826-4.078-4.078s1.826-4.078 4.078-4.078 4.078 1.826 4.078 4.078-4.078 4.078z"/></svg>☕ 請我喝杯咖啡</a></div>
+<div class="wrap" style="padding-top:14px"><a href="https://forumdata-collab.github.io/" style="display:inline-flex;align-items:center;gap:6px;color:var(--dim);text-decoration:none;font-size:14px;transition:color .2s">← 返回主页</a></div>
+<header><div class="wrap">
+<span class="tag">HERMES AGENT SUPPLEMENT · 补充指南</span>
+<h1>Hermes Agent × Cloudflare：免费挂载多模态 AI 实战</h1>
+<p class="sub">一篇记录「OpenRouter 封锁 → Cloudflare 生态重建」完整历程慨技术文件 — 生图、读图、存档、监控，全部免费额度内运作。</p>
+</div></header>
+<nav>
+<a href="#bg">0 背景</a><a href="#cf">1 CF 概览</a><a href="#img">2 生图管线</a><a href="#i2i">3 图生图</a><a href="#vision">4 读图管线</a><a href="#store">5 存档系统</a><a href="#mon">6 监控</a><a href="#docs">7 文件清单</a><a href="#pit">8 踩坑合集</a><a href="#start">9 快速开始</a><a href="#prod">10 补充建议</a>
+</nav>
+<main class="wrap">
+<h2 id="bg">0 · 背景：一次真实慨封锁事件</h2>
+<div class="card">
+<p>2026-08-01，Hermes Agent 慨主力 OpenRouter 帐户突然被<b>Google、OpenAI、Anthropic 三厂联合封锁</b>（403<code>violation of provider Terms Of Service</code>）。诊断结果：</p>
+<table>
+<tr><th>测试</th><th>结果</th><th>结论</th></tr>
+<tr><td>OpenAI 系（gpt-image-1 / gpt-5-image-mini）</td><td class="no">403 TOS</td><td rowspan="3">帐户被永久标记（permanently flagged），与 IP / credits / 设定无关，retry 无效</td></tr>
+<tr><td>Google 系（gemini-3-pro-image / gemini-3.6-flash vision）</td><td class="no">403 TOS</td></tr>
+<tr><td>Anthropic（claude-sonnet-4）</td><td class="no">403 TOS</td></tr>
+<tr><td>z.ai / Qwen / xAI / Meta 系</td><td class="ok">正常</td><td>文字 + 读图仍然可用</td></tr>
+</table>
+<p>关键教训：<b>唔好将全部 AI 能力押喺单一第三方平台</b>。 OpenRouter 系聚合商，帐户一被标记就全线失效。与其开新帐户（有同 IP 关联风险），不如迁去基础设施商 Cloudflare — 渠系 DNS/CDN 供应商，唔会因「AI 内容政策」封你。</p>
+</div>
+<h2 id="cf">1 · Cloudflare Workers AI 概览</h2>
+<h3>1.1 免费额度（重点记住）</h3>
+<table>
+<tr><th>项目</th><th>额度</th><th>备注</th></tr>
+<tr><td>Neurons</td><td><b>10,000 / 日</b></td><td>每日 00:00 UTC 重置，毋须信用卡</td></tr>
+<tr><td>并行请求</td><td>1 个</td><td>连环 call 会排队，要设 sleep</td></tr>
+<tr><td>超过额度</td><td>$0.011 / 1,000 neurons</td><td>要 Workers Paid plan 先可以超</td></tr>
+<tr><td>R2 储存</td><td>10 GB + 零 egress</td><td>每月 100 万次写入 / 1000 万次读取</td></tr>
+<tr><td>Paid-only 模型</td><td>3 个</td><td>kimi-k2.6 / kimi-k2.7-code / glm-5.2 免费 plan 用唔到</td></tr>
+</table>
+<h3>1.2 可用模型（61 个，实测）</h3>
+<div class="grid">
+<div class="box"><b>🎨 Text-to-Image（11）</b><small>flux-1-schnell（~58 neurons/张）、flux-2-klein-4b/9b、flux-2-dev、SDXL、leonardo phoenix 等</small></div>
+<div class="box"><b>👁️ Vision（2）</b><small>llava-1.5-7b（Beta 坏）、moondream3.1（空回传坏）— 实际用<code>gemma-4-26b</code>顶上</small></div>
+<div class="box"><b>🗣️ TTS（4）</b><small>Deepgram Aura-2（en/es）、MeloTTS（多语言）</small></div>
+<div class="box"><b>🎙️ STT（5）</b><small>Whisper large-v3-turbo（~42 neurons/分钟）→ 每日 ~230 分钟免费转录</small></div>
+<div class="box"><b>📝 Text（26）</b><small>gemma-4 系列、llama-3.3-70b-fp8-fast、deepseek-r1-distill-qwen-32b、mistral-small-3.1</small></div>
+<div class="box"><b>🌐 其他</b><small>翻译 m2m100、Embeddings×7、分类、image classification</small></div>
+</div>
+<div class="pit"><b>⚠️ 实测教训：</b>「官方 model list 有」≠「用得」。 moondream3.1 用正确参数（<code>task:query + question</code>）都回传空<code>{}</code>；llava-1.5 系 Beta 标记 + 400。唯一可靠慨 vision 系<code>@cf/google/gemma-4-26b-a4b-it</code>（Text Generation task 但支援图片输入）。</div>
+<h2 id="img">2 · 生图管线（免费，每日 ~170 张）</h2>
+<p>核心：<b>CF flux-1-schnell 做主力，Pollinations.ai 做后备</b>。 Pollinations 完全免费无 key（unlimited-ish），质素中等；CF flux 质素高，有明确每日额度。</p>
+<h3>2.1 费用估算（实测 pricing 页）</h3>
+<table>
+<tr><th>模型</th><th>成本</th><th>每日张数（1​​0k neurons）</th><th>用途</th></tr>
+<tr><td>flux-1-schnell</td><td>~57.6 neurons/张（1024², 4 steps）</td><td class="ok">~170</td><td>日常主力</td></tr>
+<tr><td>flux-2-klein-4b</td><td>~104 neurons/张</td><td class="ok">~90</td><td>快 + 平</td></tr>
+<tr><td>flux-2-klein-9b</td><td>~1,364 neurons/张</td><td class="no">~7</td><td>图生图专用（贵，悭住用）</td></tr>
+<tr><td>leonardo phoenix</td><td>~540 neurons/张</td><td>~18</td><td>高质</td></tr>
+</table>
+<h3>2.2 核心 call（直连 API，唔使部署 Worker）</h3>
+<pre><code># 生圖 — POST /ai/run/&lt;model&gt;，JSON body
+curl -X POST "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell" \
+  -H "Authorization: Bearer $CF_WORKERS_AI_TOKEN" -H "Content-Type: application/json" \
+  -d '{"prompt":"a red apple on a wooden table","steps":4}'
+# 回傳 {"result":{"image":"&lt;base64&gt;"}} → base64 解碼即係圖片</code></pre>
+<h2 id="i2i">3 · 图生图（FLUX.2 慨隐藏技巧）</h2>
+<div class="pit"><b>⚠️ 最易踩慨坑：</b>CF 慨<code>flux-2-klein-9b</code>收图生图，但<b>唔系 JSON</b>— 用 JSON 传<code>image</code>会出<code>400 Type mismatch</code>。渠慨 schema 系<b>multipart/form-data</b>！</div>
+<pre><code># 正確做法：-F multipart，image 用檔案上傳
+curl -X POST ".../ai/run/@cf/black-forest-labs/flux-2-klein-9b" \
+  -H "Authorization: Bearer $CF_WORKERS_AI_TOKEN" \
+  -F "prompt=同一個場景，但女仔而家伏喺沙灘上，golden hour" \
+  -F "image=@reference.jpg"        # ← multipart 檔案，唔係 base64！
+# → 直接回傳編輯後嘅圖（base64）</code></pre>
+<p>呢个系成个迁移最关键慨发现：<b>img2img 用 multipart，txt2img 用 JSON</b>。用 Python<code>requests</code>就系<code>files={"image": (name, f, "image/jpeg")} + data={"prompt": ...}</code>。</p>
+<h2 id="vision">4 · 读图管线（双 gemma-4 通道）</h2>
+<p>Hermes 慨 vision fallback 原本会跌返去主 model（deepseek-v4-pro），而 deepseek 系<b>纯文字</b>— 收咗图但「睇唔到」（实测渠慨 reasoning 话<i>I don't see any image attached</i>）。解法：显式设定 aux vision provider。</p>
+<pre><code># config.yaml — 主力：OpenRouter gemma-4:free（26B，免費 :free 唔受三廠封鎖影響）
+auxiliary:
+  vision:
+    provider: openrouter
+    model: google/gemma-4-26b-a4b-it:free</code></pre>
+<p>后备：CF 版同一个 model（<code>@cf/google/gemma-4-26b-a4b-it</code>，OpenAI-compatible messages 格式）— 写成<code>cf_vision.py</code>，gemma 主力失效时自动顶上。性能排名（实测）：</p>
+<table>
+<tr><th>排名</th><th>模型</th><th>规格</th><th>实测</th></tr>
+<tr><td>🥇 主力</td><td>gemma-4-26b-a4b-it:free（OpenRouter）</td><td>26B（4B active MoE）</td><td class="ok">详细准确</td></tr>
+<tr><td>🥈 后备</td><td>gemma-4-26b-a4b-it（CF）</td><td>同一 model 唔同 host</td><td class="ok">正常</td></tr>
+<tr><td>❌</td><td>moondream3.1 / llava-1.5（CF）</td><td>9B / 7B</td><td class="no">空回传 / 400</td></tr>
+</table>
+<h2 id="store">5 · 存档系统（Drive + R2 双轨）</h2>
+<div class="grid">
+<div class="box"><b>📁 Google Drive（5TB）</b><small>每次生图自动 upload 去<code>AI-images/YYYY-MM/</code>，并写入<code>images_index.jsonl</code>记录 prompt + Drive link。用现有 google-workspace OAuth，零新设定。</small></div>
+<div class="box"><b>☁️ Cloudflare R2（10GB）</b><small><code>ai-images</code>bucket，S3-compatible API（boto3）。超过 50%（5GB）自动删最旧到 4GB，每日 03:00 cron。</small></div>
+</div>
+<pre><code># R2 = S3-compatible：endpoint 用 account ID
+endpoint = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+s3 = boto3.client("s3", endpoint_url=endpoint,
+                  aws_access_key_id=R2_ACCESS_KEY_ID,      # 32 字元
+                  aws_secret_access_key=R2_SECRET_ACCESS_KEY)  # 64 字元
+s3.create_bucket(Bucket="ai-images")   # 免費 plan 都得
+s3.upload_file(path, "ai-images", name)  # 零 egress 費用</code></pre>
+<h2 id="mon">6 · 监控（watchdog 模式）</h2>
+<p>两个 cron 都用「<b>静默 unless 有事</b>」模式（stdout 空 = 唔推 Telegram）：</p>
+<table>
+<tr><th>Job</th><th>频率</th><th>行为</th></tr>
+<tr><td>cf-quota-monitor</td><td>每小时</td><td>读<code>cf_usage.log</code>（每张图自动记录 neurons），<b>&gt;80%（8,000）先推警报</b>+ model 分布 + 剩余张数</td></tr>
+<tr><td>r2-cleanup</td><td>每日 03:00</td><td>R2 用量 &gt;5GB → 删最旧到 4GB，<b>有删先推报告</b></td></tr>
+</table>
+<pre><code># cf_usage.log 一行一個記錄（生圖時自動寫）
+2026-08-01 12:45 flux-1-schnell 57.6
+2026-08-01 12:58 flux-2-klein-9b 1545.0</code></pre>
+<h2 id="docs">7 · 文件清单（要准备啲咩）</h2>
+<h3>7.1 Credentials（4 样）</h3>
+<table>
+<tr><th>凭证</th><th>攞法</th><th>用途</th></tr>
+<tr><td>CF Account ID</td><td>Dashboard 右栏</td><td>所有 API 慨 path 前缀</td></tr>
+<tr><td>CF Workers AI Token</td><td>My Profile → API Tokens →<b>Workers AI 模板</b>（Account → Workers AI → Edit）</td><td>生图 / 读图 / TTS / STT</td></tr>
+<tr><td>R2 S3 Token（Access Key + Secret）</td><td>R2 →<b>Manage R2 API Tokens</b>（唔系 Profile API Tokens！）</td><td>图片存档（Access=32字元 / Secret=64字元）</td></tr>
+<tr><td>Google OAuth（client_secret + token）</td><td>Google Cloud Console → OAuth 2.0 Client</td><td>Drive 存档（google-workspace skill 管理）</td></tr>
+</table>
+<div class="pit"><b>⚠️ 三个 R2/CF 权限陷阱：</b>① Workers AI token 唔包 R2（要另外开）；② R2 S3 token 必须喺 R2 dashboard 开，Profile 慨 cfut_ token 用唔到；③ Access Key 同 Secret 长度唔同（32 vs 64），贴错会出<code>Credential access key has length 64, should be 32</code>。</div>
+<h3>7.2 .env 变数（5 组）</h3>
+<pre><code>CF_WORKERS_AI_TOKEN=cfut_xxxxxxxx...        # Workers AI
+CF_ACCOUNT_ID=your_account_id...            # Account ID
+R2_ACCOUNT_ID=your_account_id...            # = Account ID（endpoint 用）
+R2_ACCESS_KEY_ID=your_access_key...         # 32 字元
+R2_SECRET_ACCESS_KEY=your_secret_key...     # 64 字元
+OPENROUTER_API_KEY=sk-or-...                # gemma-4:free 讀圖（保留）</code></pre>
+<h3>7.3 Scripts（4 个，全部喺 ~/scripts/）</h3>
+<table>
+<tr><th>Script</th><th>功能</th></tr>
+<tr><td><code>gen_image.py</code></td><td>生图（CF flux 主 → Pollinations 后备）+ img2img（--ref）+ 自动存 Drive/R2 + usage log</td></tr>
+<tr><td><code>cf_vision.py</code></td><td>CF gemma-4 读图（后备通道）</td></tr>
+<tr><td><code>r2_storage.py</code></td><td>R2 upload / usage / cleanup（&gt;5GB 删旧）</td></tr>
+<tr><td><code>cf_quota_monitor.py</code></td><td>每日 neurons 用量统计 + 80% 警报</td></tr>
+</table>
+<p>注意：<code>gen_image.py</code>要用<b>hermes venv python</b>（有 PIL 先可以 crop 比例），<code>/usr/bin/python3</code>冇 PIL。</p>
+<h2 id="pit">8 · 踩坑合集（全部亲测）</h2>
+<ul>
+<li><b>403 TOS 唔一定系内容问题</b>— 连「a red apple」都被拒 = 帐户层面封锁，retry 冇用。用非 Google/OpenAI/Anthropic 模型（z.ai/qwen/xAI）即刻确认。</li>
+<li><b>OpenRouter :free 模型唔受三厂封锁影响</b>—<code>gemma-4-26b-a4b-it:free</code>系读图最佳免费选择。</li>
+<li><b>CF flux-2-klein-9b 用 multipart 唔系 JSON</b>— JSON 传 image 会 400。</li>
+<li><b>CF 官方 model list 有 ≠ 用得</b>— moondream 空回传、llava 400（Beta）；gemma-4 顶上。</li>
+<li><b>Flux 固定输出 1024×1024</b>— 要 4:5 / 16:9 就要用 PIL 中心裁剪（width/height 参数系无效慨）。</li>
+<li><b>deepseek 收图但睇唔到</b>— 纯文字 model；aux vision 要显式设 vision-capable model。</li>
+<li><b>curl 传大 base64 图会「Argument list too long」</b>— 写 JSON body 落 file 再用<code>-d @file</code>。</li>
+<li><b>免费 tier 得 1 个并行请求</b>— batch 要加 sleep，否则排队。</li>
+</ul>
+<h2 id="start">9 · 快速开始（3 步）</h2>
+<ol>
+<li><b>攞凭证</b>：CF Workers AI token + R2 S3 token（见 §7.1），写入<code>~/.hermes/.env</code></li>
+<li><b>放 Scripts</b>：<code>gen_image.py</code>/<code>cf_vision.py</code>/<code>r2_storage.py</code>入<code>~/scripts/</code>，用<code>hermes venv python</code>执行</li>
+<li><b>试</b>：<code>python gen_image.py "prompt" 1024 1024 /tmp/a.png --ref ref.jpg</code>→ 自动生图 + 存 Drive + 存 R2</li>
+</ol>
+<pre><code># 一條 command 完成：生圖 + 雙備份 + 用量記錄
+python ~/scripts/gen_image.py "a cyberpunk cat in neon Tokyo" 1024 1024 /tmp/cat.png
+# [cloudflare-flux] /tmp/cat.png
+# [drive] archived -&gt; https://drive.google.com/file/d/...
+# [r2] archived</code></pre>
+<h2 id="prod">10 · 补充建议（由可用变成 production-ready）</h2>
+<p>以下系工程师覆核后慨补充 — 聚焦「可用 → production-ready」慨细节：凭证最小权限、重试策略、成本控制、后备深度、双轨对账。</p>
+<h3>10.1 凭证安全：Token 最小权限 + Rotation</h3>
+<ul>
+<li><b>Workers AI Token</b>— 「Account → Workers AI → Edit」已经系最细权限；如有多个 project，建议开<b>Account-scoped</b>（而唔系 User-scoped），方便 revoke 时唔影响其他用途。</li>
+<li><b>R2 S3 Token</b>— 可以开「<b>Object Read &amp; Write only</b>」（唔使 Admin），并且设指定 bucket（<code>ai-images</code>）— 即使 token 泄漏都只系得一个 bucket 慨权限。</li>
+<li><b>Rotation 策略</b>— 建议每<b>90 日</b>rotation 一次；CF API Token 可以开多个，新旧并行一阵再删旧，唔会断服务。</li>
+</ul>
+<h3>10.2 重试策略：唔系净系 sleep</h3>
+<p>免费 tier 得 1 个并行，实际会遇到三种情况：</p>
+<table>
+<tr><th>情况</th><th>HTTP Status</th><th>处理建议</th></tr>
+<tr><td>Rate limit</td><td class="no">429</td><td>读<code>Retry-After</code>header，跟渠等</td></tr>
+<tr><td>排队中（极慢）</td><td>200</td><td>设<code>timeout=60s</code>，超时即视为失败 fallback</td></tr>
+<tr><td>模型暂时不可用</td><td class="warn">500 / 503</td><td>即时 fallback 去 Pollinations，唔使 retry</td></tr>
+</table>
+<pre><code># gen_image.py 加 retry decorator，但 429 唔應該 blind retry
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.Timeout,
+        requests.exceptions.HTTPError
+    ))
+)</code></pre>
+<p><b>重点：</b>429 要读<code>Retry-After</code>，否则会越踩越重。</p>
+<h3>10.3 Flux steps × neurons 慨非线性关系</h3>
+<p>§2.1 慨 57.6 neurons 系 4 steps 数值 — steps 对成本影响好大：</p>
+<table>
+<tr><th>Steps</th><th>~Neurons/张</th><th>质量</th><th>建议场景</th></tr>
+<tr><td>1</td><td>~20</td><td>草稿级</td><td>快速 preview、测试 prompt</td></tr>
+<tr><td>4</td><td>~58</td><td>可用</td><td>日常主力（原指南建议）</td></tr>
+<tr><td>8</td><td>~110</td><td>较好</td><td>重要输出</td></tr>
+<tr><td>20</td><td>~260</td><td>最佳</td><td>极少需要，不如用 flux-2-dev</td></tr>
+</table>
+<p>悭 neurons 技巧：batch 生成（例如一次出 10 张变体），可以先用<code>step=1</code>做 preview，用户拣中先出<code>step=4/8</code>，悭大量 neurons。</p>
+<h3>10.4 Pollinations fallback 慨隐藏限制</h3>
+<ul>
+<li><b>无 key ≠ 无限制</b>— 单一 IP 有隐性 rate limit（约 10 req/min），超过会 return 空或极慢。</li>
+<li><b>无 SLA</b>— 有时会 down 几分钟，fallback 逻辑要处理 timeout。</li>
+<li><b>Prompt 兼容性</b>— weight syntax（如<code>(...:1.2)</code>）可能唔支援；建议保持 prompt 简洁，唔用进阶语法。</li>
+</ul>
+<p>建议 fallback 顺序：<b>CF flux → Pollinations → 本地 SD（如有）→ 文字描述代替</b>。</p>
+<h3>10.5 R2 与 Drive 双轨慨一致性</h3>
+<ul>
+<li><b>Drive 系「写入后即忘」</b>— 上传成功就完，冇 checksum。</li>
+<li><b>R2 可以验证</b>— upload 后用<code>head_object</code>读 ETag，同本地 file 慨 MD5 比对。</li>
+</ul>
+<pre><code># gen_image.py 生成後寫 manifest.jsonl（每行一條，方便日後對賬）
+{"timestamp":"...","prompt":"...","drive_id":"...","r2_key":"...","md5":"...","model":"flux-1-schnell","neurons":57.6}</code></pre>
+<p>R2 cleanup 删旧档时，最好连 manifest 一齐标记<code>deleted: true</code>，而唔系真系删 manifest entry，保留 audit trail。</p>
+<h3>10.6 图片 metadata：EXIF 写入 prompt</h3>
+<pre><code># 用 PIL 將 prompt、model、timestamp 寫入 PNG 嘅 tEXt chunk
+from PIL import Image, PngImagePlugin
+img = Image.open("/tmp/cat.png")
+metadata = PngImagePlugin.PngInfo()
+metadata.add_text("prompt", prompt)
+metadata.add_text("model", "flux-1-schnell")
+metadata.add_text("generated_at", datetime.utcnow().isoformat())
+img.save("/tmp/cat.png", pnginfo=metadata)</code></pre>
+<p>咁样即使 manifest 遗失，都可以从图片本身读返原始 prompt，方便 reproduce。</p>
+<h3>10.7 CF Workers AI 慨「隐藏」endpoint：AI binding</h3>
+<p>原指南用直连 API（<code>/ai/run/...</code>）。如果已部署 Cloudflare Worker，可以用 AI binding：</p>
+<pre><code>// worker.js
+const response = await env.AI.run(
+    '@cf/black-forest-labs/flux-1-schnell',
+    { prompt: "..." }
+)</code></pre>
+<p><b>好处：</b>唔使管理 token（binding 用 account 权限）、可以做 caching、rate limiting、auth 层。<b>坏处：</b>要部署 Worker，多一层 infra。对于 Hermes 慨 use case，直连 API 已经够简洁；但如果将来要开 API 畀多人用，binding 方式会更易管理 quota。</p>
+<div class="pit"><b>总结：</b>fallback 要够深。由 OpenRouter 三厂封锁学到慨教训，同样适用于 CF（免费 tier 有 quota、有并行限制、有偶发性 500）。<b>多一层后备，少一层深夜 debug。</b></div>
+<div class="link-block" style="margin-top:16px">
+<h3>相关指南</h3>
+<div class="link-row"><span class="label">Oracle 部署</span><a href="https://forumdata-collab.github.io/hermes-oracle-guide/">如何在 Oracle VM 免费部署 Hermes Agent</a></div>
+<div class="link-row"><span class="label">音乐下载</span><a href="https://forumdata-collab.github.io/hermes-mp3-guide/">Hermes Agent 音乐下载指南（YouTube → MP3）</a></div>
+<div class="link-row"><span class="label">科学上网</span><a href="https://forumdata-collab.github.io/hermes-gfw-guide/">Oracle VM + Cloudflare 双通道科学上网实战</a></div>
+<div class="link-row"><span class="label">Hermes Agent</span><a href="https://github.com/NousResearch/hermes-agent" target="_blank">github.com/NousResearch/hermes-agent</a> <span class="badge ok">MIT 开源</span></div>
+</div>
+</main>
+<footer><div class="wrap">Hermes Agent Supplement · 2026-08-01（v2：加入 production-ready 补充建议）· 由 Hermes Agent 喺真实迁移过程中记录 · 全部技巧经实测</div></footer>
+</body>
+</html>
