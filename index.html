@@ -172,12 +172,12 @@ s3.upload_file(path, "ai-images", name)  # 零 egress 費用</code></pre>
 <div class="pit"><b>⚠️ 三個 R2/CF 權限陷阱：</b>① Workers AI token 唔包 R2（要另外開）；② R2 S3 token 必須喺 R2 dashboard 開，Profile 嘅 cfut_ token 用唔到；③ Access Key 同 Secret 長度唔同（32 vs 64），貼錯會出 <code>Credential access key has length 64, should be 32</code>。</div>
 
 <h3>7.2 .env 變數（5 組）</h3>
-<pre><code>CF_WORKERS_AI_TOKEN=cfut_...        # Workers AI
-CF_ACCOUNT_ID=c401a5...             # Account ID
-R2_ACCOUNT_ID=c401a5...             # = Account ID（endpoint 用）
-R2_ACCESS_KEY_ID=8003be...          # 32 字元
-R2_SECRET_ACCESS_KEY=eaec...        # 64 字元
-OPENROUTER_API_KEY=sk-or-...        # gemma-4:free 讀圖（保留）</code></pre>
+<pre><code>CF_WORKERS_AI_TOKEN=cfut_xxxxxxxx...        # Workers AI
+CF_ACCOUNT_ID=your_account_id...            # Account ID
+R2_ACCOUNT_ID=your_account_id...            # = Account ID（endpoint 用）
+R2_ACCESS_KEY_ID=your_access_key...         # 32 字元
+R2_SECRET_ACCESS_KEY=your_secret_key...     # 64 字元
+OPENROUTER_API_KEY=sk-or-...                # gemma-4:free 讀圖（保留）</code></pre>
 
 <h3>7.3 Scripts（4 個，全部喺 ~/scripts/）</h3>
 <table>
