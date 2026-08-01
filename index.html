@@ -44,6 +44,12 @@ li{margin:5px 0}
 .b-no{background:rgba(255,107,107,.15);color:var(--bad)}
 .b-warn{background:rgba(255,180,84,.15);color:var(--warn)}
 .pit{background:rgba(255,180,84,.06);border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.link-block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.link-block h3{font-size:15px;font-weight:600;margin-bottom:10px;color:var(--acc2)}
+.link-block .link-row{display:flex;align-items:center;padding:6px 0;font-size:13px;gap:8px}
+.link-block .link-row .label{color:var(--dim);min-width:80px;flex-shrink:0}
+.link-block .link-row a{color:var(--acc);text-decoration:none}
+.link-block .link-row a:hover{text-decoration:underline}
 footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
 @media(max-width:640px){h1{font-size:23px}h2{font-size:19px}}
 </style>
@@ -292,6 +298,13 @@ const response = await env.AI.run(
 <p><b>好處：</b>唔使管理 token（binding 用 account 權限）、可以做 caching、rate limiting、auth 層。<b>壞處：</b>要部署 Worker，多一層 infra。對於 Hermes 嘅 use case，直連 API 已經夠簡潔；但如果將來要開 API 畀多人用，binding 方式會更易管理 quota。</p>
 
 <div class="pit"><b>總結：</b>fallback 要夠深。由 OpenRouter 三廠封鎖學到嘅教訓，同樣適用於 CF（免費 tier 有 quota、有並行限制、有偶發性 500）。<b>多一層後備，少一層深夜 debug。</b></div>
+
+<div class="link-block" style="margin-top:16px">
+<h3>相關指南</h3>
+<div class="link-row"><span class="label">Oracle 部署</span><a href="https://forumdata-collab.github.io/hermes-oracle-guide/">如何在 Oracle VM 免費部署 Hermes Agent</a></div>
+<div class="link-row"><span class="label">音樂下載</span><a href="https://forumdata-collab.github.io/hermes-mp3-guide/">Hermes Agent 音樂下載指南（YouTube → MP3）</a></div>
+<div class="link-row"><span class="label">Hermes Agent</span><a href="https://github.com/NousResearch/hermes-agent" target="_blank">github.com/NousResearch/hermes-agent</a> <span class="badge ok">MIT 開源</span></div>
+</div>
 
 </main>
 <footer><div class="wrap">Hermes Agent Supplement · 2026-08-01（v2：加入 production-ready 補充建議）· 由 Hermes Agent 喺真實遷移過程中記錄 · 全部技巧經實測</div></footer>
