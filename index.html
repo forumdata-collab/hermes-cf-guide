@@ -55,7 +55,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:v
   <p class="sub">一篇記錄「OpenRouter 封鎖 → Cloudflare 生態重建」完整歷程嘅技術文件 — 生圖、讀圖、存檔、監控，全部免費額度內運作。</p>
 </div></header>
 <nav>
-  <a href="#bg">0 背景</a><a href="#cf">1 CF 概覽</a><a href="#img">2 生圖管線</a><a href="#i2i">3 圖生圖</a><a href="#vision">4 讀圖管線</a><a href="#store">5 存檔系統</a><a href="#mon">6 監控</a><a href="#docs">7 文件清單</a><a href="#pit">8 踩坑合集</a><a href="#start">9 快速開始</a>
+  <a href="#bg">0 背景</a><a href="#cf">1 CF 概覽</a><a href="#img">2 生圖管線</a><a href="#i2i">3 圖生圖</a><a href="#vision">4 讀圖管線</a><a href="#store">5 存檔系統</a><a href="#mon">6 監控</a><a href="#docs">7 文件清單</a><a href="#pit">8 踩坑合集</a><a href="#start">9 快速開始</a><a href="#prod">10 補充建議</a>
 </nav>
 <main class="wrap">
 
@@ -214,7 +214,86 @@ python ~/scripts/gen_image.py "a cyberpunk cat in neon Tokyo" 1024 1024 /tmp/cat
 # [r2] archived</code></pre>
 
 
+<h2 id="prod">10 · 補充建議（由可用變成 production-ready）</h2>
+<p>以下係工程師覆核後嘅補充 — 聚焦「可用 → production-ready」嘅細節：憑證最小權限、重試策略、成本控制、後備深度、雙軌對賬。</p>
+
+<h3>10.1 憑證安全：Token 最小權限 + Rotation</h3>
+<ul>
+<li><b>Workers AI Token</b> — 「Account → Workers AI → Edit」已經係最細權限；如有多個 project，建議開 <b>Account-scoped</b>（而唔係 User-scoped），方便 revoke 時唔影響其他用途。</li>
+<li><b>R2 S3 Token</b> — 可以開「<b>Object Read &amp; Write only</b>」（唔使 Admin），並且設指定 bucket（<code>ai-images</code>）— 即使 token 洩漏都只係得一個 bucket 嘅權限。</li>
+<li><b>Rotation 策略</b> — 建議每 <b>90 日</b> rotation 一次；CF API Token 可以開多個，新舊並行一陣再刪舊，唔會斷服務。</li>
+</ul>
+
+<h3>10.2 重試策略：唔係淨係 sleep</h3>
+<p>免費 tier 得 1 個並行，實際會遇到三種情況：</p>
+<table>
+<tr><th>情況</th><th>HTTP Status</th><th>處理建議</th></tr>
+<tr><td>Rate limit</td><td class="no">429</td><td>讀 <code>Retry-After</code> header，跟佢等</td></tr>
+<tr><td>排隊中（極慢）</td><td>200</td><td>設 <code>timeout=60s</code>，超時即視為失敗 fallback</td></tr>
+<tr><td>模型暫時不可用</td><td class="warn">500 / 503</td><td>即時 fallback 去 Pollinations，唔使 retry</td></tr>
+</table>
+<pre><code># gen_image.py 加 retry decorator，但 429 唔應該 blind retry
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.Timeout,
+        requests.exceptions.HTTPError
+    ))
+)</code></pre>
+<p><b>重點：</b>429 要讀 <code>Retry-After</code>，否則會越踩越重。</p>
+
+<h3>10.3 Flux steps × neurons 嘅非線性關係</h3>
+<p>§2.1 嘅 57.6 neurons 係 4 steps 數值 — steps 對成本影響好大：</p>
+<table>
+<tr><th>Steps</th><th>~Neurons/張</th><th>質量</th><th>建議場景</th></tr>
+<tr><td>1</td><td>~20</td><td>草稿級</td><td>快速 preview、測試 prompt</td></tr>
+<tr><td>4</td><td>~58</td><td>可用</td><td>日常主力（原指南建議）</td></tr>
+<tr><td>8</td><td>~110</td><td>較好</td><td>重要輸出</td></tr>
+<tr><td>20</td><td>~260</td><td>最佳</td><td>極少需要，不如用 flux-2-dev</td></tr>
+</table>
+<p>慳 neurons 技巧：batch 生成（例如一次出 10 張變體），可以先用 <code>step=1</code> 做 preview，用戶揀中先出 <code>step=4/8</code>，慳大量 neurons。</p>
+
+<h3>10.4 Pollinations fallback 嘅隱藏限制</h3>
+<ul>
+<li><b>無 key ≠ 無限制</b> — 單一 IP 有隱性 rate limit（約 10 req/min），超過會 return 空或極慢。</li>
+<li><b>無 SLA</b> — 有時會 down 幾分鐘，fallback 邏輯要處理 timeout。</li>
+<li><b>Prompt 兼容性</b> — weight syntax（如 <code>(...:1.2)</code>）可能唔支援；建議保持 prompt 簡潔，唔用進階語法。</li>
+</ul>
+<p>建議 fallback 順序：<b>CF flux → Pollinations → 本地 SD（如有）→ 文字描述代替</b>。</p>
+
+<h3>10.5 R2 與 Drive 雙軌嘅一致性</h3>
+<ul>
+<li><b>Drive 係「寫入後即忘」</b> — 上傳成功就完，冇 checksum。</li>
+<li><b>R2 可以驗證</b> — upload 後用 <code>head_object</code> 讀 ETag，同本地 file 嘅 MD5 比對。</li>
+</ul>
+<pre><code># gen_image.py 生成後寫 manifest.jsonl（每行一條，方便日後對賬）
+{"timestamp":"...","prompt":"...","drive_id":"...","r2_key":"...","md5":"...","model":"flux-1-schnell","neurons":57.6}</code></pre>
+<p>R2 cleanup 刪舊檔時，最好連 manifest 一齊標記 <code>deleted: true</code>，而唔係真係刪 manifest entry，保留 audit trail。</p>
+
+<h3>10.6 圖片 metadata：EXIF 寫入 prompt</h3>
+<pre><code># 用 PIL 將 prompt、model、timestamp 寫入 PNG 嘅 tEXt chunk
+from PIL import Image, PngImagePlugin
+img = Image.open("/tmp/cat.png")
+metadata = PngImagePlugin.PngInfo()
+metadata.add_text("prompt", prompt)
+metadata.add_text("model", "flux-1-schnell")
+metadata.add_text("generated_at", datetime.utcnow().isoformat())
+img.save("/tmp/cat.png", pnginfo=metadata)</code></pre>
+<p>咁樣即使 manifest 遺失，都可以從圖片本身讀返原始 prompt，方便 reproduce。</p>
+
+<h3>10.7 CF Workers AI 嘅「隱藏」endpoint：AI binding</h3>
+<p>原指南用直連 API（<code>/ai/run/...</code>）。如果已部署 Cloudflare Worker，可以用 AI binding：</p>
+<pre><code>// worker.js
+const response = await env.AI.run(
+    '@cf/black-forest-labs/flux-1-schnell',
+    { prompt: "..." }
+)</code></pre>
+<p><b>好處：</b>唔使管理 token（binding 用 account 權限）、可以做 caching、rate limiting、auth 層。<b>壞處：</b>要部署 Worker，多一層 infra。對於 Hermes 嘅 use case，直連 API 已經夠簡潔；但如果將來要開 API 畀多人用，binding 方式會更易管理 quota。</p>
+
+<div class="pit"><b>總結：</b>fallback 要夠深。由 OpenRouter 三廠封鎖學到嘅教訓，同樣適用於 CF（免費 tier 有 quota、有並行限制、有偶發性 500）。<b>多一層後備，少一層深夜 debug。</b></div>
+
 </main>
-<footer><div class="wrap">Hermes Agent Supplement · 2026-08-01 · 由 Hermes Agent 喺真實遷移過程中記錄 · 全部技巧經實測</div></footer>
+<footer><div class="wrap">Hermes Agent Supplement · 2026-08-01（v2：加入 production-ready 補充建議）· 由 Hermes Agent 喺真實遷移過程中記錄 · 全部技巧經實測</div></footer>
 </body>
 </html>
