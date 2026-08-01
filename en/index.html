@@ -1,0 +1,290 @@
+html
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hermes Agent × Cloudflare AI Supplementary Guide · Free AI Pipeline Practice</title>
+<style>
+:root{
+  --bg:#0f1420; --card:#171e2e; --card2:#1d2638; --line:#2a3550;
+  --txt:#e6ebf5; --dim:#93a0bd; --acc:#4ea1ff; --acc2:#38d9a9;
+  --warn:#ffb454; --bad:#ff6b6b; --mono:'SF Mono','JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:16px/1.75 -apple-system,'Segoe UI','PingFang HK','Noto Sans TC',sans-serif;padding-bottom:80px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{padding:48px 0 28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#141b2c 0%,var(--bg) 100%)}
+header .tag{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--acc2);border:1px solid var(--acc2);border-radius:99px;padding:3px 12px;margin-bottom:14px}
+h1{font-size:30px;line-height:1.3;font-weight:800}
+.sub{color:var(--dim);margin-top:10px;font-size:15px}
+nav{position:sticky;top:0;background:rgba(15,20,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10;overflow-x:auto;white-space:nowrap}
+nav a{display:inline-block;color:var(--dim);text-decoration:none;font-size:13.5px;padding:12px 14px}
+nav a:hover{color:var(--acc)}
+main{padding-top:36px}
+h2{font-size:22px;margin:52px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+h3{font-size:17px;margin:26px 0 10px;color:var(--acc)}
+p{margin:10px 0;color:var(--txt)}
+code{font-family:var(--mono);font-size:.88em;background:var(--card2);padding:2px 7px;border-radius:5px;color:var(--acc2)}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;margin:12px 0;font-family:var(--mono);font-size:13px;line-height:1.6}
+pre code{background:none;padding:0;color:var(--txt)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{color:var(--acc);font-weight:600;background:var(--card)}
+tr:nth-child(even) td{background:var(--card)}
+.ok{color:var(--acc2)} .no{color:var(--bad)} .warn{color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:16px 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.box b{display:block;color:var(--acc2);font-size:14px;margin-bottom:6px}
+.box small{color:var(--dim)}
+ul,ol{margin:10px 0 10px 24px}
+li{margin:5px 0}
+.badge{display:inline-block;font-size:11.5px;border-radius:5px;padding:1px 8px;margin-right:6px}
+.b-ok{background:rgba(56,217,169,.15);color:var(--acc2)}
+.b-no{background:rgba(255,107,107,.15);color:var(--bad)}
+.b-warn{background:rgba(255,180,84,.15);color:var(--warn)}
+.pit{background:rgba(255,180,84,.06);border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.link-block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.link-block h3{font-size:15px;font-weight:600;margin-bottom:10px;color:var(--acc2)}
+.link-block .link-row{display:flex;align-items:center;padding:6px 0;font-size:13px;gap:8px}
+.link-block .link-row .label{color:var(--dim);min-width:80px;flex-shrink:0}
+.link-block .link-row a{color:var(--acc);text-decoration:none}
+.link-block .link-row a:hover{text-decoration:underline}
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+@media(max-width:640px){h1{font-size:23px}h2{font-size:19px}}
+</style>
+</head>
+<body>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px"><select onchange="location.href=this.value" style="background:var(--card,#171e2e);color:var(--text,#e8e8e8);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:8px;padding:8px 12px;font-size:13px;font-family:inherit"><option value="https://forumdata-collab.github.io/hermes-cf-guide/en/" selected>English (US)</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/zh-CN/">简体中文</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/zh-TW/">繁體中文（台灣）</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/">繁體中文（香港）</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/ar/">العربية</option></select><a href="https://ko-fi.com/forumdata" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:12px 28px;background:#ff5e5b;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.47.06 8.529-1.723 8.649-4.916zm-11.638 8.978c-2.252 0-4.078-1.826-4.078-4.078s1.826-4.078 4.078-4.078 4.078 1.826 4.078 4.078-4.078 4.078z"/></svg>☕ 請我喝杯咖啡</a></div>
+<div class="wrap" style="padding-top:14px"><a href="https://forumdata-collab.github.io/" style="display:inline-flex;align-items:center;gap:6px;color:var(--dim);text-decoration:none;font-size:14px;transition:color .2s">← Return to homepage</a></div>
+<header><div class="wrap">
+<span class="tag">HERMES AGENT SUPPLEMENT · Supplementary Guide</span>
+<h1>Hermes Agent × Cloudflare: Free multi-modal AI implementation</h1>
+<p class="sub">A technical document recording the complete process of "OpenRouter Blockade → Cloudflare Ecological Reconstruction" - image generation, image reading, archiving, and monitoring, all operating within the free quota.</p>
+</div></header>
+<nav>
+<a href="#bg">0 background</a><a href="#cf">1 CF Overview</a><a href="#img">2. Graphics pipeline</a><a href="#i2i">3 pictures make pictures</a><a href="#vision">4 Image reading pipeline</a><a href="#store">5 Archiving system</a><a href="#mon">6 monitoring</a><a href="#docs">7 Document List</a><a href="#pit">8 Trampling Collection</a><a href="#start">9 Quick start</a><a href="#prod">10 additional suggestions</a>
+</nav>
+<main class="wrap">
+<h2 id="bg">0 · Background: A real-life lockdown incident</h2>
+<div class="card">
+<p>On 2026-08-01, the main OpenRouter account of Hermes Agent was suddenly<b>Google, OpenAI, and Anthropic jointly blockade</b>(403<code>violation of provider Terms Of Service</code>). Diagnosis result:</p>
+<table>
+<tr><th>test</th><th>Result</th><th>Conclusion</th></tr>
+<tr><td>OpenAI system (gpt-image-1 / gpt-5-image-mini)</td><td class="no">403 TOS</td><td rowspan="3">Account is permanently flagged (permanently flagged), regardless of IP / credits / settings, retry is invalid</td></tr>
+<tr><td>Google system (gemini-3-pro-image / gemini-3.6-flash vision)</td><td class="no">403 TOS</td></tr>
+<tr><td>Anthropic(claude-sonnet-4)</td><td class="no">403 TOS</td></tr>
+<tr><td>z.ai / Qwen / xAI / Meta system</td><td class="ok">normal</td><td>Text + image reading is still available</td></tr>
+</table>
+<p>Key lessons:<b>It’s not good to bet all AI capabilities on a single third-party platform</b>. OpenRouter is an aggregator, and once an account is flagged, it will be completely invalid. Rather than opening a new account (with the risks associated with the same IP), move to the infrastructure provider Cloudflare - they are a DNS/CDN provider and will not block you due to "AI content policy".</p>
+</div>
+<h2 id="cf">1 · Cloudflare Workers AI Overview</h2>
+<h3>1.1 Free quota (important to remember)</h3>
+<table>
+<tr><th>Project</th><th>Quota</th><th>Remarks</th></tr>
+<tr><td>Neurons</td><td><b>10,000/day</b></td><td>Reset daily at 00:00 UTC, no credit card required</td></tr>
+<tr><td>Parallel requests</td><td>1</td><td>Continuous calls will be queued, so you need to set sleep</td></tr>
+<tr><td>Exceed the limit</td><td>$0.011 / 1,000 neurons</td><td>If you want Workers Paid plan, you can first exceed</td></tr>
+<tr><td>R2 storage</td><td>10 GB + zero egress</td><td>1 million writes / 10 million reads per month</td></tr>
+<tr><td>Paid-only model</td><td>3</td><td>kimi-k2.6 / kimi-k2.7-code / glm-5.2 free plan not available</td></tr>
+</table>
+<h3>1.2 Available models (61, measured)</h3>
+<div class="grid">
+<div class="box"><b>🎨 Text-to-Image (11)</b><small>flux-1-schnell (~58 neurons/sheet), flux-2-klein-4b/9b, flux-2-dev, SDXL, leonardo phoenix, etc.</small></div>
+<div class="box"><b>👁️ Vision (2)</b><small>llava-1.5-7b (Beta bad), moondream3.1 (empty return bad) - actual use<code>gemma-4-26b</code>top</small></div>
+<div class="box"><b>🗣️ TTS (4)</b><small>Deepgram Aura-2 (en/es), MeloTTS (multi-language)</small></div>
+<div class="box"><b>🎙️ STT (5)</b><small>Whisper large-v3-turbo (~42 neurons/min) → ~230 minutes of free transcription per day</small></div>
+<div class="box"><b>📝Text(26)</b><small>gemma-4 series, llama-3.3-70b-fp8-fast, deepseek-r1-distill-qwen-32b, mistral-small-3.1</small></div>
+<div class="box"><b>🌐 Others</b><small>Translation m2m100, Embeddings×7, classification, image classification</small></div>
+</div>
+<div class="pit"><b>⚠️ Lessons from actual testing:</b>"Official model list has" ≠ "useful". moondream3.1 with correct parameters (<code>task:query + question</code>) all return empty<code>{}</code>;llava-1.5 line Beta mark + 400. The only reliable vision is<code>@cf/google/gemma-4-26b-a4b-it</code>(Text Generation task but supports image input).</div>
+<h2 id="img">2 · Image generation pipeline (free, ~170 images per day)</h2>
+<p>Core:<b>CF flux-1-schnell is the main force, Pollinations.ai is the backup</b>. Pollinations is completely free, no key (unlimited-ish), and of medium quality; CF flux is of high quality, with a clear daily quota.</p>
+<h3>2.1 Cost estimation (actual measurement pricing page)</h3>
+<table>
+<tr><th>model</th><th>Cost</th><th>Number of pictures per day (10k neurons)</th><th>Purpose</th></tr>
+<tr><td>flux-1-schnell</td><td>~57.6 neurons/sheet (1024², 4 steps)</td><td class="ok">~170</td><td>daily main force</td></tr>
+<tr><td>flux-2-klein-4b</td><td>~104 neurons/sheet</td><td class="ok">~90</td><td>fast + flat</td></tr>
+<tr><td>flux-2-klein-9b</td><td>~1,364 neurons/sheet</td><td class="no">~7</td><td>Special for Tu Sheng Tu (expensive, for saving money)</td></tr>
+<tr><td>leonardo phoenix</td><td>~540 neurons/sheet</td><td>~18</td><td>high quality</td></tr>
+</table>
+<h3>2.2 Core call (directly connected to API, without deploying Worker)</h3>
+<pre><code># 生圖 — POST /ai/run/&lt;model&gt;，JSON body
+curl -X POST "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell" \
+  -H "Authorization: Bearer $CF_WORKERS_AI_TOKEN" -H "Content-Type: application/json" \
+  -d '{"prompt":"a red apple on a wooden table","steps":4}'
+# 回傳 {"result":{"image":"&lt;base64&gt;"}} → base64 解碼即係圖片</code></pre>
+<h2 id="i2i">3 · Tushengtu (hidden skills of FLUX.2)</h2>
+<div class="pit"><b>⚠️ The easiest pitfalls:</b>CF generous<code>flux-2-klein-9b</code>Receive pictures and make pictures, but<b>Not JSON</b>— Pass in JSON<code>image</code>Will come out<code>400 Type mismatch</code>. Its schema is<b>multipart/form-data</b>!</div>
+<pre><code># 正確做法：-F multipart，image 用檔案上傳
+curl -X POST ".../ai/run/@cf/black-forest-labs/flux-2-klein-9b" \
+  -H "Authorization: Bearer $CF_WORKERS_AI_TOKEN" \
+  -F "prompt=同一個場景，但女仔而家伏喺沙灘上，golden hour" \
+  -F "image=@reference.jpg"        # ← multipart 檔案，唔係 base64！
+# → 直接回傳編輯後嘅圖（base64）</code></pre>
+<p>This is the most critical discovery of the migration:<b>img2img uses multipart, txt2img uses JSON</b>. Using Python<code>requests</code>Just tie<code>files={"image": (name, f, "image/jpeg")} + data={"prompt": ...}</code>.</p>
+<h2 id="vision">4 · Image reading pipeline (dual gemma-4 channels)</h2>
+<p>Hermes' vision fallback would originally fall back to the main model (deepseek-v4-pro), and deepseek is<b>plain text</b>— Received the picture but "can't see it" (testing his reasoning)<i>I don't see any image attached</i>). Solution: Explicitly set the aux vision provider.</p>
+<pre><code># config.yaml — 主力：OpenRouter gemma-4:free（26B，免費 :free 唔受三廠封鎖影響）
+auxiliary:
+  vision:
+    provider: openrouter
+    model: google/gemma-4-26b-a4b-it:free</code></pre>
+<p>Fallback: CF version of the same model (<code>@cf/google/gemma-4-26b-a4b-it</code>, OpenAI-compatible messages format) - written as<code>cf_vision.py</code>, gemma automatically tops up when the main force fails. Performance ranking (actual measurement):</p>
+<table>
+<tr><th>Ranking</th><th>model</th><th>Specifications</th><th>Actual measurement</th></tr>
+<tr><td>🥇 Main force</td><td>gemma-4-26b-a4b-it:free (OpenRouter)</td><td>26B (4B active MoE)</td><td class="ok">Detailed and accurate</td></tr>
+<tr><td>🥈 Backup</td><td>gemma-4-26b-a4b-it (CF)</td><td>The same model but different hosts</td><td class="ok">normal</td></tr>
+<tr><td>❌</td><td>moondream3.1/llava-1.5 (CF)</td><td>9B/7B</td><td class="no">Empty return / 400</td></tr>
+</table>
+<h2 id="store">5 · Archive system (Drive + R2 dual track)</h2>
+<div class="grid">
+<div class="box"><b>📁 Google Drive (5TB)</b><small>Every time a picture is produced, it is automatically uploaded.<code>AI-images/YYYY-MM/</code>, and write<code>images_index.jsonl</code>Record prompt + Drive link. Use existing google-workspace OAuth, no new setup.</small></div>
+<div class="box"><b>☁️ Cloudflare R2 (10GB)</b><small><code>ai-images</code>bucket, S3-compatible API (boto3). If it exceeds 50% (5GB), it will be automatically deleted to 4GB at 03:00 cron every day.</small></div>
+</div>
+<pre><code># R2 = S3-compatible：endpoint 用 account ID
+endpoint = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+s3 = boto3.client("s3", endpoint_url=endpoint,
+                  aws_access_key_id=R2_ACCESS_KEY_ID,      # 32 字元
+                  aws_secret_access_key=R2_SECRET_ACCESS_KEY)  # 64 字元
+s3.create_bucket(Bucket="ai-images")   # 免費 plan 都得
+s3.upload_file(path, "ai-images", name)  # 零 egress 費用</code></pre>
+<h2 id="mon">6 · Monitoring (watchdog mode)</h2>
+<p>Use "<b>Silent unless something happens</b>"Mode (stdout empty = do not push Telegram):</p>
+<table>
+<tr><th>Job</th><th>Frequency</th><th>behavior</th></tr>
+<tr><td>cf-quota-monitor</td><td>hourly</td><td>read<code>cf_usage.log</code>(Automatically record neurons for each picture),<b>&gt;80% (8,000) push alerts first</b>+ model distribution + remaining number of sheets</td></tr>
+<tr><td>r2-cleanup</td><td>Daily 03:00</td><td>R2 usage &gt;5GB → delete the oldest to 4GB,<b>Deletion first push report</b></td></tr>
+</table>
+<pre><code># cf_usage.log 一行一個記錄（生圖時自動寫）
+2026-08-01 12:45 flux-1-schnell 57.6
+2026-08-01 12:58 flux-2-klein-9b 1545.0</code></pre>
+<h2 id="docs">7 · Document list (something to prepare)</h2>
+<h3>7.1 Credentials (4 types)</h3>
+<table>
+<tr><th>Voucher</th><th>method</th><th>Purpose</th></tr>
+<tr><td>CF Account ID</td><td>Dashboard right column</td><td>path prefix for all APIs</td></tr>
+<tr><td>CF Workers AI Token</td><td>My Profile → API Tokens →<b>Workers AI Template</b>(Account → Workers AI → Edit)</td><td>Picture generation / picture reading / TTS / STT</td></tr>
+<tr><td>R2 S3 Token (Access Key + Secret)</td><td>R2 →<b>Manage R2 API Tokens</b>(Not Profile API Tokens!)</td><td>Image archive (Access=32 characters / Secret=64 characters)</td></tr>
+<tr><td>Google OAuth (client_secret + token)</td><td>Google Cloud Console → OAuth 2.0 Client</td><td>Drive archive (google-workspace skill management)</td></tr>
+</table>
+<div class="pit"><b>⚠️ Three R2/CF permission traps:</b>① Workers AI token does not include R2 (you need to open it separately); ② R2 S3 token must be opened in R2 dashboard, Profile’s cfut_ token cannot be used; ③ Access Key and Secret have different lengths (32 vs 64), and errors will occur if posted incorrectly<code>Credential access key has length 64, should be 32</code>.</div>
+<h3>7.2 .env variables (5 groups)</h3>
+<pre><code>CF_WORKERS_AI_TOKEN=cfut_xxxxxxxx...        # Workers AI
+CF_ACCOUNT_ID=your_account_id...            # Account ID
+R2_ACCOUNT_ID=your_account_id...            # = Account ID（endpoint 用）
+R2_ACCESS_KEY_ID=your_access_key...         # 32 字元
+R2_SECRET_ACCESS_KEY=your_secret_key...     # 64 字元
+OPENROUTER_API_KEY=sk-or-...                # gemma-4:free 讀圖（保留）</code></pre>
+<h3>7.3 Scripts (4, all in ~/scripts/)</h3>
+<table>
+<tr><th>Script</th><th>Function</th></tr>
+<tr><td><code>gen_image.py</code></td><td>Generated graph (CF flux main → Pollinations backup) + img2img (--ref) + automatic storage Drive/R2 + usage log</td></tr>
+<tr><td><code>cf_vision.py</code></td><td>CF gemma-4 image reading (backup channel)</td></tr>
+<tr><td><code>r2_storage.py</code></td><td>R2 upload / usage / cleanup (&gt;5GB delete old)</td></tr>
+<tr><td><code>cf_quota_monitor.py</code></td><td>Daily neuron usage statistics + 80% alert</td></tr>
+</table>
+<p>Note:<code>gen_image.py</code>Want to use<b>hermes venv python</b>(If you have PIL, you can crop the proportion first),<code>/usr/bin/python3</code>No PIL.</p>
+<h2 id="pit">8 · A collection of pitfalls (all personally tested)</h2>
+<ul>
+<li><b>403 TOS is not necessarily a content problem</b>— Even "a red apple" was rejected = blocked at the account level, retry is useless. Instant confirmation with non-Google/OpenAI/Anthropic models (z.ai/qwen/xAI).</li>
+<li><b>OpenRouter: free model is not affected by the blockade of the third manufacturer</b>—<code>gemma-4-26b-a4b-it:free</code>The best free choice for reading pictures.</li>
+<li><b>CF flux-2-klein-9b uses multipart instead of JSON</b>— JSON image will be 400.</li>
+<li><b>CF official model list has ≠ used</b>— moondream empty return, llava 400 (Beta); gemma-4 top.</li>
+<li><b>Flux fixed output 1024×1024</b>— If you want 4:5 / 16:9, you need to use PIL center cropping (width/height parameters are invalid).</li>
+<li><b>deepseek collects pictures but cannot see them</b>— Plain text model; aux vision must explicitly set the vision-capable model.</li>
+<li><b>Curl transfers large base64 image "Argument list too long"</b>— Write JSON body and drop it into file for reuse<code>-d @file</code>.</li>
+<li><b>Free tier gets 1 parallel request</b>—Batch must add sleep, otherwise it will be queued.</li>
+</ul>
+<h2 id="start">9 · Quick Start (3 steps)</h2>
+<ol>
+<li><b>Voucher</b>: CF Workers AI token + R2 S3 token (see §7.1), write<code>~/.hermes/.env</code></li>
+<li><b>Put Scripts</b>:<code>gen_image.py</code>/<code>cf_vision.py</code>/<code>r2_storage.py</code>enter<code>~/scripts/</code>, use<code>hermes venv python</code>execute</li>
+<li><b>try</b>:<code>python gen_image.py "prompt" 1024 1024 /tmp/a.png --ref ref.jpg</code>→ Automatically generate pictures + save Drive + save R2</li>
+</ol>
+<pre><code># 一條 command 完成：生圖 + 雙備份 + 用量記錄
+python ~/scripts/gen_image.py "a cyberpunk cat in neon Tokyo" 1024 1024 /tmp/cat.png
+# [cloudflare-flux] /tmp/cat.png
+# [drive] archived -&gt; https://drive.google.com/file/d/...
+# [r2] archived</code></pre>
+<h2 id="prod">10 · Additional suggestions (from available to production-ready)</h2>
+<p>The following are additions after review by engineers - focusing on "available → production-ready" details: minimum credentials, retry strategy, cost control, backup depth, and dual-track reconciliation.</p>
+<h3>10.1 Credential security: Token minimum permissions + Rotation</h3>
+<ul>
+<li><b>Workers AI Token</b>— "Account → Workers AI → Edit" has the most detailed permissions; if there are multiple projects, it is recommended to open<b>Account-scoped</b>(Not User-scoped), convenient for revoke without affecting other uses.</li>
+<li><b>R2 S3 Token</b>— You can open "<b>Object Read &amp; Write only</b>” (do not use Admin), and set the specified bucket (<code>ai-images</code>)—Even if the token is leaked, it only requires the permissions of one bucket.</li>
+<li><b>Rotation strategy</b>— Recommended per<b>90 days</b>rotation once; multiple CF API Tokens can be opened. The old and new ones can be run in parallel for a while and then the old ones can be deleted without interrupting the service.</li>
+</ul>
+<h3>10.2 Retry strategy: not related to sleep</h3>
+<p>If you get 1 parallel in the free tier, you will actually encounter three situations:</p>
+<table>
+<tr><th>situation</th><th>HTTP Status</th><th>Handling suggestions</th></tr>
+<tr><td>Rate limit</td><td class="no">429</td><td>read<code>Retry-After</code>header, follow him, etc.</td></tr>
+<tr><td>Queuing (extremely slow)</td><td>200</td><td>Set<code>timeout=60s</code>, timeout is considered a failure fallback</td></tr>
+<tr><td>Model is temporarily unavailable</td><td class="warn">500/503</td><td>Instant fallback to Pollinations without retry</td></tr>
+</table>
+<pre><code># gen_image.py 加 retry decorator，但 429 唔應該 blind retry
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.Timeout,
+        requests.exceptions.HTTPError
+    ))
+)</code></pre>
+<p><b>Key points:</b>429 to read<code>Retry-After</code>, otherwise it will be stepped on harder and harder.</p>
+<h3>10.3 Nonlinear relationship of Flux steps × neurons</h3>
+<p>§2.1 57.6 neurons is a 4 steps value — steps has a great impact on the cost:</p>
+<table>
+<tr><th>Steps</th><th>~Neurons/Zhang</th><th>quality</th><th>Suggested scenarios</th></tr>
+<tr><td>1</td><td>~20</td><td>draft level</td><td>Quick preview and test prompt</td></tr>
+<tr><td>4</td><td>~58</td><td>Available</td><td>Daily main force (original guide recommendation)</td></tr>
+<tr><td>8</td><td>~110</td><td>better</td><td>important output</td></tr>
+<tr><td>20</td><td>~260</td><td>best</td><td>Rarely needed, it is better to use flux-2-dev</td></tr>
+</table>
+<p>Neuron-saving technique: batch generation (for example, 10 variants at a time), you can use it first<code>step=1</code>For preview, users choose the best ones first.<code>step=4/8</code>, save a lot of neurons.</p>
+<h3>10.4 Hidden limitations of Pollinations fallback</h3>
+<ul>
+<li><b>No key ≠ unlimited</b>— A single IP has an implicit rate limit (about 10 req/min). If it is exceeded, it will return empty or be extremely slow.</li>
+<li><b>No SLA</b>— Sometimes it will be down for several minutes, and the fallback logic needs to handle the timeout.</li>
+<li><b>Prompt compatibility</b>— weight syntax (e.g.<code>(...:1.2)</code>) may not be supported; it is recommended to keep the prompt simple and not use advanced syntax.</li>
+</ul>
+<p>Recommended fallback order:<b>CF flux → Pollinations → Local SD (if any) → Text description instead</b>.</p>
+<h3>10.5 R2 and Drive dual-track consistency</h3>
+<ul>
+<li><b>Drive system "write and forget"</b>— Once the upload is successful, it is complete and there is no checksum.</li>
+<li><b>R2 can verify</b>— upload for later use<code>head_object</code>Read the ETag and compare it with the MD5 of the local file.</li>
+</ul>
+<pre><code># gen_image.py 生成後寫 manifest.jsonl（每行一條，方便日後對賬）
+{"timestamp":"...","prompt":"...","drive_id":"...","r2_key":"...","md5":"...","model":"flux-1-schnell","neurons":57.6}</code></pre>
+<p>When R2 cleanup deletes old files, it is best to mark them together with the manifest<code>deleted: true</code>, rather than actually deleting the manifest entry and retaining the audit trail.</p>
+<h3>10.6 Image metadata: EXIF writing prompt</h3>
+<pre><code># 用 PIL 將 prompt、model、timestamp 寫入 PNG 嘅 tEXt chunk
+from PIL import Image, PngImagePlugin
+img = Image.open("/tmp/cat.png")
+metadata = PngImagePlugin.PngInfo()
+metadata.add_text("prompt", prompt)
+metadata.add_text("model", "flux-1-schnell")
+metadata.add_text("generated_at", datetime.utcnow().isoformat())
+img.save("/tmp/cat.png", pnginfo=metadata)</code></pre>
+<p>In this way, even if the manifest is lost, the original prompt can be read back from the image itself, which is convenient for reproduction.</p>
+<h3>10.7 The "hidden" endpoint of CF Workers AI: AI binding</h3>
+<p>The original guide uses the direct API (<code>/ai/run/...</code>). If you have deployed Cloudflare Worker, you can use AI binding:</p>
+<pre><code>// worker.js
+const response = await env.AI.run(
+    '@cf/black-forest-labs/flux-1-schnell',
+    { prompt: "..." }
+)</code></pre>
+<p><b>Benefits:</b>You can manage tokens (binding uses account permissions), caching, rate limiting, and auth layers.<b>Disadvantages:</b>To deploy workers, there is an additional layer of infra. For Hermes' use case, direct connection to the API is simple enough; but if the API is to be opened for use by multiple people in the future, the binding method will make it easier to manage the quota.</p>
+<div class="pit"><b>Summary:</b>The fallback should be deep enough. The lessons learned from the OpenRouter factory 3 blockade also apply to CF (free tier has quota, concurrency limit, and sporadic 500).<b>One more layer of backup and one less layer of late-night debugging.</b></div>
+<div class="link-block" style="margin-top:16px">
+<h3>Related guides</h3>
+<div class="link-row"><span class="label">Oracle deployment</span><a href="https://forumdata-collab.github.io/hermes-oracle-guide/">How to deploy Hermes Agent on Oracle VM for free</a></div>
+<div class="link-row"><span class="label">music download</span><a href="https://forumdata-collab.github.io/hermes-mp3-guide/">Hermes Agent Music Download Guide (YouTube → MP3)</a></div>
+<div class="link-row"><span class="label">Scientific Internet</span><a href="https://forumdata-collab.github.io/hermes-gfw-guide/">Oracle VM + Cloudflare dual-channel scientific Internet practice</a></div>
+<div class="link-row"><span class="label">Hermes Agent</span><a href="https://github.com/NousResearch/hermes-agent" target="_blank">github.com/NousResearch/hermes-agent</a> <span class="badge ok">MIT open source</span></div>
+</div>
+</main>
+<footer><div class="wrap">Hermes Agent Supplement · 2026-08-01 (v2: Add production-ready supplementary suggestions) · Recorded by Hermes Agent during the real migration process · All techniques have been tested</div></footer>
+</body>
+</html>
