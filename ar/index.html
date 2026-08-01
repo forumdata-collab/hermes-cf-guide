@@ -1,0 +1,290 @@
+أتش تي أم أل
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>وكيل هيرميس</title>
+<style>
+:root{
+  --bg:#0f1420; --card:#171e2e; --card2:#1d2638; --line:#2a3550;
+  --txt:#e6ebf5; --dim:#93a0bd; --acc:#4ea1ff; --acc2:#38d9a9;
+  --warn:#ffb454; --bad:#ff6b6b; --mono:'SF Mono','JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:16px/1.75 -apple-system,'Segoe UI','PingFang HK','Noto Sans TC',sans-serif;padding-bottom:80px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{padding:48px 0 28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#141b2c 0%,var(--bg) 100%)}
+header .tag{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--acc2);border:1px solid var(--acc2);border-radius:99px;padding:3px 12px;margin-bottom:14px}
+h1{font-size:30px;line-height:1.3;font-weight:800}
+.sub{color:var(--dim);margin-top:10px;font-size:15px}
+nav{position:sticky;top:0;background:rgba(15,20,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10;overflow-x:auto;white-space:nowrap}
+nav a{display:inline-block;color:var(--dim);text-decoration:none;font-size:13.5px;padding:12px 14px}
+nav a:hover{color:var(--acc)}
+main{padding-top:36px}
+h2{font-size:22px;margin:52px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+h3{font-size:17px;margin:26px 0 10px;color:var(--acc)}
+p{margin:10px 0;color:var(--txt)}
+code{font-family:var(--mono);font-size:.88em;background:var(--card2);padding:2px 7px;border-radius:5px;color:var(--acc2)}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;margin:12px 0;font-family:var(--mono);font-size:13px;line-height:1.6}
+pre code{background:none;padding:0;color:var(--txt)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{color:var(--acc);font-weight:600;background:var(--card)}
+tr:nth-child(even) td{background:var(--card)}
+.ok{color:var(--acc2)} .no{color:var(--bad)} .warn{color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:16px 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.box b{display:block;color:var(--acc2);font-size:14px;margin-bottom:6px}
+.box small{color:var(--dim)}
+ul,ol{margin:10px 0 10px 24px}
+li{margin:5px 0}
+.badge{display:inline-block;font-size:11.5px;border-radius:5px;padding:1px 8px;margin-right:6px}
+.b-ok{background:rgba(56,217,169,.15);color:var(--acc2)}
+.b-no{background:rgba(255,107,107,.15);color:var(--bad)}
+.b-warn{background:rgba(255,180,84,.15);color:var(--warn)}
+.pit{background:rgba(255,180,84,.06);border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.link-block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.link-block h3{font-size:15px;font-weight:600;margin-bottom:10px;color:var(--acc2)}
+.link-block .link-row{display:flex;align-items:center;padding:6px 0;font-size:13px;gap:8px}
+.link-block .link-row .label{color:var(--dim);min-width:80px;flex-shrink:0}
+.link-block .link-row a{color:var(--acc);text-decoration:none}
+.link-block .link-row a:hover{text-decoration:underline}
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+@media(max-width:640px){h1{font-size:23px}h2{font-size:19px}}
+</style>
+</head>
+<body>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px"><select onchange="location.href=this.value" style="background:var(--card,#171e2e);color:var(--text,#e8e8e8);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:8px;padding:8px 12px;font-size:13px;font-family:inherit"><option value="https://forumdata-collab.github.io/hermes-cf-guide/en/">English (US)</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/zh-CN/">简体中文</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/zh-TW/">繁體中文（台灣）</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/">繁體中文（香港）</option><option value="https://forumdata-collab.github.io/hermes-cf-guide/ar/" selected>العربية</option></select><a href="https://ko-fi.com/forumdata" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:12px 28px;background:#ff5e5b;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.47.06 8.529-1.723 8.649-4.916zm-11.638 8.978c-2.252 0-4.078-1.826-4.078-4.078s1.826-4.078 4.078-4.078 4.078 1.826 4.078 4.078-4.078 4.078z"/></svg>☕ 請我喝杯咖啡</a></div>
+<div class="wrap" style="padding-top:14px"><a href="https://forumdata-collab.github.io/" style="display:inline-flex;align-items:center;gap:6px;color:var(--dim);text-decoration:none;font-size:14px;transition:color .2s">← العودة إلى الصفحة الرئيسية</a></div>
+<header><div class="wrap">
+<span class="tag">ملحق وكيل هيرميس · الدليل التكميلي</span>
+<h1>وكيل Hermes × Cloudflare: تطبيق مجاني للذكاء الاصطناعي متعدد الوسائط</h1>
+<p class="sub">وثيقة فنية تسجل العملية الكاملة لـ "OpenRouter Blockade → Cloudflare Ecoological Reconstruction" - إنشاء الصور وقراءتها وأرشفتها ومراقبتها، وكلها تعمل ضمن الحصة المجانية.</p>
+</div></header>
+<nav>
+<a href="#bg">0 الخلفية</a><a href="#cf">1 نظرة عامة على التليف الكيسي</a><a href="#img">2. خط أنابيب الرسومات</a><a href="#i2i">3 صور تصنع صورا</a><a href="#vision">4 خط أنابيب قراءة الصور</a><a href="#store">5 نظام الأرشفة</a><a href="#mon">6 المراقبة</a><a href="#docs">7 قائمة الوثائق</a><a href="#pit">8 جمع الدوس</a><a href="#start">9 بداية سريعة</a><a href="#prod">10 اقتراحات إضافية</a>
+</nav>
+<main class="wrap">
+<h2 id="bg">0 · الخلفية: حادثة إغلاق حقيقية</h2>
+<div class="card">
+<p>بتاريخ 01-08-2026، تم فجأة إغلاق حساب OpenRouter الرئيسي لوكيل Hermes<b>جوجل وOpenAI وAnthropic يشتركون في الحصار</b>(403<code>violation of provider Terms Of Service</code>). نتيجة التشخيص:</p>
+<table>
+<tr><th>امتحان</th><th>نتيجة</th><th>ختاماً</th></tr>
+<tr><td>نظام OpenAI (gpt-image-1 / gpt-5-image-mini)</td><td class="no">403 شروط الخدمة</td><td rowspan="3">تم وضع علامة على الحساب بشكل دائم (تم وضع علامة بشكل دائم)، بغض النظر عن IP / الاعتمادات / الإعدادات، فإن إعادة المحاولة غير صالحة</td></tr>
+<tr><td>نظام جوجل (الجوزاء-3-برو-صورة/الجوزاء-3.6-رؤية فلاش)</td><td class="no">403 شروط الخدمة</td></tr>
+<tr><td>أنثروبي (كلود-السوناتة-4)</td><td class="no">403 شروط الخدمة</td></tr>
+<tr><td>z.ai / Qwen / xAI / نظام ميتا</td><td class="ok">طبيعي</td><td>قراءة النص + الصورة لا تزال متاحة</td></tr>
+</table>
+<p>الدروس الرئيسية:<b>ليس من الجيد المراهنة على جميع قدرات الذكاء الاصطناعي على منصة واحدة تابعة لجهة خارجية</b>. OpenRouter عبارة عن أداة تجميع، وبمجرد وضع علامة على الحساب، سيكون غير صالح تمامًا. بدلاً من فتح حساب جديد (مع المخاطر المرتبطة بنفس عنوان IP)، انتقل إلى مزود البنية التحتية Cloudflare - فهو مزود DNS/CDN ولن يمنعك بسبب "سياسة محتوى الذكاء الاصطناعي".</p>
+</div>
+<h2 id="cf">1 · نظرة عامة على الذكاء الاصطناعي لعمال Cloudflare</h2>
+<h3>1.1 الحصة المجانية (من المهم أن تتذكرها)</h3>
+<table>
+<tr><th>مشروع</th><th>الحصة النسبية</th><th>ملاحظة</th></tr>
+<tr><td>الخلايا العصبية</td><td><b>10,000/يوم</b></td><td>تتم إعادة الضبط يوميًا في تمام الساعة 00:00 بالتوقيت العالمي المنسق، دون الحاجة إلى بطاقة ائتمان</td></tr>
+<tr><td>الطلبات الموازية</td><td>1</td><td>سيتم وضع المكالمات المستمرة في قائمة الانتظار، لذا تحتاج إلى ضبط وضع السكون</td></tr>
+<tr><td>تجاوز الحد</td><td>0.011 دولار / 1000 خلية عصبية</td><td>إذا كنت تريد خطة مدفوعة الأجر للعمال، فيمكنك تجاوزها أولاً</td></tr>
+<tr><td>تخزين R2</td><td>10 جيجا + صفر خروج</td><td>مليون كتابة / 10 مليون قراءة شهريًا</td></tr>
+<tr><td>النموذج المدفوع فقط</td><td>3</td><td>kimi-k2.6 / kimi-k2.7-code / glm-5.2 الخطة المجانية غير متوفرة</td></tr>
+</table>
+<h3>1.2 النماذج المتاحة (61، مقاسة)</h3>
+<div class="grid">
+<div class="box"><b>🎨 تحويل النص إلى صورة (11)</b><small>Flux-1-schnell (~ 58 خلية عصبية/ورقة)، Flux-2-klein-4b/9b، Flux-2-dev، SDXL، ليوناردو فينيكس، إلخ.</small></div>
+<div class="box"><b>👁️ الرؤية (2)</b><small>llava-1.5-7b (بيتا سيء)، Moondream3.1 (إرجاع فارغ سيء) - الاستخدام الفعلي<code>gemma-4-26b</code>قمة</small></div>
+<div class="box"><b>🗣️ تحويل النص إلى كلام (4)</b><small>Deepgram Aura-2 (en/es)، MeloTTS (متعدد اللغات)</small></div>
+<div class="box"><b>🎙️ إس تي تي (5)</b><small>همس كبير v3-turbo (~ 42 خلية عصبية / دقيقة) → ~ 230 دقيقة من النسخ المجاني يوميًا</small></div>
+<div class="box"><b>📝النص(٢٦)</b><small>سلسلة جيما-4، لاما-3.3-70ب-FP8-فاست، ديبسيك-R1-ديستيل-كوين-32ب، ميسترال-صغير-3.1</small></div>
+<div class="box"><b>🌐 أخرى</b><small>الترجمة m2m100، التضمينات×7، التصنيف، تصنيف الصور</small></div>
+</div>
+<div class="pit"><b>⚠️ الدروس المستفادة من الاختبار الفعلي:</b>"قائمة النماذج الرسمية بها" ≠ "مفيدة". Moondream3.1 مع المعلمات الصحيحة (<code>task:query + question</code>) كل العودة فارغة<code>{}</code>;llava-1.5 خط بيتا مارك + 400. الرؤية الوحيدة الموثوقة هي<code>@cf/google/gemma-4-26b-a4b-it</code>(مهمة إنشاء النص ولكنها تدعم إدخال الصور).</div>
+<h2 id="img">2 · خط إنتاج الصور (مجاني، حوالي 170 صورة يوميًا)</h2>
+<p>جوهر:<b>CF Flux-1-schnell هي القوة الرئيسية، Pollinations.ai هي القوة الاحتياطية</b>. التلقيح مجاني تمامًا، ولا يوجد مفتاح (غير محدود)، وذو جودة متوسطة؛ يتميز تدفق CF بجودة عالية، مع حصة يومية واضحة.</p>
+<h3>2.1 تقدير التكلفة (صفحة تسعير القياس الفعلي)</h3>
+<table>
+<tr><th>نموذج</th><th>يكلف</th><th>عدد الصور يوميًا (10 آلاف خلية عصبية)</th><th>يستخدم</th></tr>
+<tr><td>تدفق-1-شنيل</td><td>~57.6 خلية عصبية/ورقة (1024²، 4 خطوات)</td><td class="ok">~170</td><td>القوة الرئيسية اليومية</td></tr>
+<tr><td>تدفق-2-كلاين-4ب</td><td>~104 خلية عصبية/ورقة</td><td class="ok">~90</td><td>سريع + مسطح</td></tr>
+<tr><td>تدفق-2-كلاين-9ب</td><td>~1,364 خلية عصبية/ورقة</td><td class="no">~7</td><td>خاص بـ Tu Sheng Tu (غالي الثمن، لتوفير المال)</td></tr>
+<tr><td>ليوناردو فينيكس</td><td>~540 خلية عصبية/ورقة</td><td>~18</td><td>جودة عالية</td></tr>
+</table>
+<h3>2.2 الاتصال الأساسي (متصل مباشرة بواجهة برمجة التطبيقات (API)، دون نشر العامل)</h3>
+<pre><code># 生圖 — POST /ai/run/&lt;model&gt;，JSON body
+curl -X POST "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell" \
+  -H "Authorization: Bearer $CF_WORKERS_AI_TOKEN" -H "Content-Type: application/json" \
+  -d '{"prompt":"a red apple on a wooden table","steps":4}'
+# 回傳 {"result":{"image":"&lt;base64&gt;"}} → base64 解碼即係圖片</code></pre>
+<h2 id="i2i">3 · Tushengtu (المهارات الخفية لـ FLUX.2)</h2>
+<div class="pit"><b>⚠️ أسهل العثرات:</b>CF سخية<code>flux-2-klein-9b</code>تلقي الصور والتقاط الصور، ولكن<b>ليس جسون</b>- تمر في JSON<code>image</code>سوف يخرج<code>400 Type mismatch</code>. مخططها هو<b>بيانات متعددة الأجزاء/النموذج</b>!</div>
+<pre><code># 正確做法：-F multipart，image 用檔案上傳
+curl -X POST ".../ai/run/@cf/black-forest-labs/flux-2-klein-9b" \
+  -H "Authorization: Bearer $CF_WORKERS_AI_TOKEN" \
+  -F "prompt=同一個場景，但女仔而家伏喺沙灘上，golden hour" \
+  -F "image=@reference.jpg"        # ← multipart 檔案，唔係 base64！
+# → 直接回傳編輯後嘅圖（base64）</code></pre>
+<p>وهذا هو الاكتشاف الأكثر أهمية للهجرة:<b>يستخدم img2img الأجزاء المتعددة، ويستخدم txt2img JSON</b>. باستخدام بايثون<code>requests</code>فقط اربط<code>files={"image": (name, f, "image/jpeg")} + data={"prompt": ...}</code>.</p>
+<h2 id="vision">4 · خط أنابيب قراءة الصور (قنوات جيما المزدوجة 4)</h2>
+<p>يعود احتياطي رؤية هيرميس في الأصل إلى النموذج الرئيسي (deepseek-v4-pro)، وdeepseek هو<b>نص عادي</b>- استلم الصورة ولكن "لا يستطيع رؤيتها" (اختبار تفكيره)<i>لا أرى أي صورة مرفقة</i>). الحل: قم بتعيين موفر الرؤية المساعدة بشكل صريح.</p>
+<pre><code># config.yaml — 主力：OpenRouter gemma-4:free（26B，免費 :free 唔受三廠封鎖影響）
+auxiliary:
+  vision:
+    provider: openrouter
+    model: google/gemma-4-26b-a4b-it:free</code></pre>
+<p>الاحتياطي: نسخة CF من نفس النموذج (<code>@cf/google/gemma-4-26b-a4b-it</code>، تنسيق الرسائل المتوافق مع OpenAI) - مكتوبًا كـ<code>cf_vision.py</code>، تضاف جيما تلقائيًا عندما تفشل القوة الرئيسية. تصنيف الأداء (القياس الفعلي):</p>
+<table>
+<tr><th>تصنيف</th><th>نموذج</th><th>مواصفة</th><th>القياس الفعلي</th></tr>
+<tr><td>🥇 القوة الرئيسية</td><td>Gemma-4-26b-a4b-it:مجاني (OpenRouter)</td><td>26B (4B وزارة البيئة النشطة)</td><td class="ok">مفصلة ودقيقة</td></tr>
+<tr><td>🥈 النسخ الاحتياطي</td><td>جيما-4-26ب-a4b-it (CF)</td><td>نفس النموذج ولكن مضيفين مختلفين</td><td class="ok">طبيعي</td></tr>
+<tr><td>❌</td><td>Moondream3.1/llava-1.5 (CF)</td><td>9ب/7ب</td><td class="no">عودة فارغة / 400</td></tr>
+</table>
+<h2 id="store">5 · نظام الأرشفة (Drive + R2 ثنائي المسار)</h2>
+<div class="grid">
+<div class="box"><b>📁 جوجل درايف (5 تيرابايت)</b><small>في كل مرة يتم إنتاج صورة، يتم تحميلها تلقائيًا.<code>AI-images/YYYY-MM/</code>، والكتابة<code>images_index.jsonl</code>سجل موجه + رابط محرك الأقراص. استخدم Google-workspace OAuth الحالي، ولا يوجد إعداد جديد.</small></div>
+<div class="box"><b>☁️ كلاودفلير R2 (10 جيجابايت)</b><small><code>ai-images</code>دلو، واجهة برمجة التطبيقات (API) المتوافقة مع S3 (boto3). إذا تجاوزت 50% (5 جيجابايت)، فسيتم حذفها تلقائيًا إلى 4 جيجابايت عند الساعة 03:00 كرونة كل يوم.</small></div>
+</div>
+<pre><code># R2 = S3-compatible：endpoint 用 account ID
+endpoint = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+s3 = boto3.client("s3", endpoint_url=endpoint,
+                  aws_access_key_id=R2_ACCESS_KEY_ID,      # 32 字元
+                  aws_secret_access_key=R2_SECRET_ACCESS_KEY)  # 64 字元
+s3.create_bucket(Bucket="ai-images")   # 免費 plan 都得
+s3.upload_file(path, "ai-images", name)  # 零 egress 費用</code></pre>
+<h2 id="mon">6 · المراقبة (وضع المراقبة)</h2>
+<p>يستخدم "<b>الصمت ما لم يحدث شيء</b>"الوضع (stdout فارغ = لا تدفع Telegram):</p>
+<table>
+<tr><th>وظيفة</th><th>تكرار</th><th>سلوك</th></tr>
+<tr><td>مراقبة الحصص CF</td><td>كل ساعة</td><td>يقرأ<code>cf_usage.log</code>(تسجيل الخلايا العصبية تلقائيا لكل صورة)،<b>&gt; 80% (8,000) تنبيهات فورية أولاً</b>+ توزيع النموذج + العدد المتبقي من الأوراق</td></tr>
+<tr><td>تنظيف r2</td><td>يوميا 03:00</td><td>استخدام R2&gt; 5 جيجابايت → احذف الأقدم إلى 4 جيجابايت،<b>حذف تقرير الدفعة الأولى</b></td></tr>
+</table>
+<pre><code># cf_usage.log 一行一個記錄（生圖時自動寫）
+2026-08-01 12:45 flux-1-schnell 57.6
+2026-08-01 12:58 flux-2-klein-9b 1545.0</code></pre>
+<h2 id="docs">7 · قائمة الوثائق (شيء للتحضير)</h2>
+<h3>7.1 أوراق الاعتماد (4 أنواع)</h3>
+<table>
+<tr><th>شهادة</th><th>طريقة</th><th>يستخدم</th></tr>
+<tr><td>معرف حساب CF</td><td>لوحة القيادة العمود الأيمن</td><td>بادئة المسار لجميع واجهات برمجة التطبيقات</td></tr>
+<tr><td>رمز الذكاء الاصطناعي لعمال CF</td><td>ملفي الشخصي → رموز API →<b>قالب الذكاء الاصطناعي للعمال</b>(الحساب → الذكاء الاصطناعي للعمال → تحرير)</td><td>توليد الصور / قراءة الصور / TTS / STT</td></tr>
+<tr><td>رمز R2 S3 (مفتاح الوصول + السر)</td><td>R2 →<b>إدارة رموز R2 API</b>(ليست الرموز المميزة لواجهة برمجة تطبيقات الملف الشخصي!)</td><td>أرشيف الصور (الوصول = 32 حرفًا / السر = 64 حرفًا)</td></tr>
+<tr><td>Google OAuth (client_secret + الرمز المميز)</td><td>Google Cloud Console → عميل OAuth 2.0</td><td>أرشيف Drive (إدارة مهارات Google-workspace)</td></tr>
+</table>
+<div class="pit"><b>⚠️ ثلاثة مصائد أذونات R2/CF:</b>① لا يتضمن رمز الذكاء الاصطناعي الخاص بالعامل R2 (تحتاج إلى فتحه بشكل منفصل)؛ ② يجب فتح رمز R2 S3 في لوحة معلومات R2، ولا يمكن استخدام الرمز المميز cfut_ الخاص بالملف الشخصي؛ ③ مفتاح الوصول والسر لهما أطوال مختلفة (32 مقابل 64)، وستحدث أخطاء إذا تم نشرهما بشكل غير صحيح<code>Credential access key has length 64, should be 32</code>.</div>
+<h3>7.2 متغيرات .env (5 مجموعات)</h3>
+<pre><code>CF_WORKERS_AI_TOKEN=cfut_xxxxxxxx...        # Workers AI
+CF_ACCOUNT_ID=your_account_id...            # Account ID
+R2_ACCOUNT_ID=your_account_id...            # = Account ID（endpoint 用）
+R2_ACCESS_KEY_ID=your_access_key...         # 32 字元
+R2_SECRET_ACCESS_KEY=your_secret_key...     # 64 字元
+OPENROUTER_API_KEY=sk-or-...                # gemma-4:free 讀圖（保留）</code></pre>
+<h3>7.3 البرامج النصية (4، كلها في ~/scripts/)</h3>
+<table>
+<tr><th>البرنامج النصي</th><th>وظيفة</th></tr>
+<tr><td><code>gen_image.py</code></td><td>رسم بياني تم إنشاؤه (تدفق CF الرئيسي → النسخ الاحتياطي للتلقيح) + img2img (--ref) + التخزين التلقائي Drive/R2 + سجل الاستخدام</td></tr>
+<tr><td><code>cf_vision.py</code></td><td>قراءة الصور CF Gemma-4 (قناة احتياطية)</td></tr>
+<tr><td><code>r2_storage.py</code></td><td>تحميل / استخدام / تنظيف R2 (&gt; حذف 5 جيجابايت القديمة)</td></tr>
+<tr><td><code>cf_quota_monitor.py</code></td><td>إحصائيات استخدام الخلايا العصبية اليومية + تنبيه بنسبة 80%</td></tr>
+</table>
+<p>يلاحظ:<code>gen_image.py</code>تريد استخدامها<b>هيرميس فينف بيثون</b>(إذا كان لديك PIL، يمكنك قص النسبة أولاً)،<code>/usr/bin/python3</code>لا يوجد قانون العزل السياسي.</p>
+<h2 id="pit">8 · مجموعة من المزالق (جميعها مجربة شخصيا)</h2>
+<ul>
+<li><b>403 TOS ليس بالضرورة مشكلة في المحتوى</b>— حتى "التفاحة الحمراء" تم رفضها = تم حظرها على مستوى الحساب، وإعادة المحاولة غير مجدية. تأكيد فوري باستخدام نماذج غير تابعة لـ Google/OpenAI/Anthropic (z.ai/qwen/xAI).</li>
+<li><b>OpenRouter: النموذج المجاني لا يتأثر بحصار الشركة المصنعة الثالثة</b>—<code>gemma-4-26b-a4b-it:free</code>أفضل خيار مجاني لقراءة الصور.</li>
+<li><b>يستخدم CFflux-2-klein-9b الأجزاء المتعددة بدلاً من JSON</b>- صورة JSON ستكون 400.</li>
+<li><b>تم استخدام قائمة نماذج CF الرسمية</b>— Moondream عودة فارغة، llava 400 (بيتا)؛ جيما-4 أعلى.</li>
+<li><b>تدفق ثابت الناتج 1024 × 1024</b>— إذا كنت تريد 4:5 / 16:9، فأنت بحاجة إلى استخدام الاقتصاص المركزي PIL (معلمات العرض/الارتفاع غير صالحة).</li>
+<li><b>يقوم برنامج Deepseek بجمع الصور ولكن لا يمكنه رؤيتها</b>— نموذج نص عادي؛ يجب أن تحدد aux Vision بوضوح النموذج القادر على الرؤية.</li>
+<li><b>يقوم Curl بنقل صورة base64 كبيرة الحجم "قائمة الوسائط طويلة جدًا"</b>- اكتب نص JSON وأسقطه في ملف لإعادة استخدامه<code>-d @file</code>.</li>
+<li><b>تحصل الطبقة المجانية على طلب واحد متوازي</b>—يجب أن تضيف الدفعة وضع السكون، وإلا سيتم وضعها في قائمة الانتظار.</li>
+</ul>
+<h2 id="start">9 · البداية السريعة (3 خطوات)</h2>
+<ol>
+<li><b>قسيمة</b>: رمز CF Workers AI + رمز R2 S3 (انظر §7.1)، اكتب<code>~/.hermes/.env</code></li>
+<li><b>وضع البرامج النصية</b>:<code>gen_image.py</code>/<code>cf_vision.py</code>/<code>r2_storage.py</code>يدخل<code>~/scripts/</code>،يستخدم<code>hermes venv python</code>ينفذ</li>
+<li><b>يحاول</b>:<code>python gen_image.py "prompt" 1024 1024 /tmp/a.png --ref ref.jpg</code>→ إنشاء الصور تلقائيًا + حفظ Drive + حفظ R2</li>
+</ol>
+<pre><code># 一條 command 完成：生圖 + 雙備份 + 用量記錄
+python ~/scripts/gen_image.py "a cyberpunk cat in neon Tokyo" 1024 1024 /tmp/cat.png
+# [cloudflare-flux] /tmp/cat.png
+# [drive] archived -&gt; https://drive.google.com/file/d/...
+# [r2] archived</code></pre>
+<h2 id="prod">10 · اقتراحات إضافية (من المتوفرة إلى الجاهزة للإنتاج)</h2>
+<p>فيما يلي الإضافات بعد المراجعة من قبل المهندسين - مع التركيز على التفاصيل "المتاحة ← الجاهزة للإنتاج": الحد الأدنى من بيانات الاعتماد، واستراتيجية إعادة المحاولة، والتحكم في التكلفة، وعمق النسخ الاحتياطي، وتسوية المسار المزدوج.</p>
+<h3>10.1 أمان بيانات الاعتماد: الحد الأدنى من أذونات الرمز المميز + التدوير</h3>
+<ul>
+<li><b>العمال AI رمز</b>— يحتوي "الحساب ← الذكاء الاصطناعي للعمال ← تحرير" على الأذونات الأكثر تفصيلاً؛ إذا كان هناك مشاريع متعددة، فمن المستحسن فتحها<b>على نطاق الحساب</b>(ليس على نطاق المستخدم)، مناسب للإلغاء دون التأثير على الاستخدامات الأخرى.</li>
+<li><b>رمز R2 S3</b>- يمكنك فتح "<b>كائن القراءة والكتابة فقط</b>"(لا تستخدم المسؤول)، وقم بتعيين المجموعة المحددة (<code>ai-images</code>) - حتى لو تم تسريب الرمز المميز، فهو يتطلب أذونات مجموعة واحدة فقط.</li>
+<li><b>استراتيجية التناوب</b>— الموصى بها لكل<b>90 يوما</b>دوران مرة واحدة؛ يمكن فتح عدة رموز CF API. يمكن تشغيل القديم والجديد بالتوازي لفترة ثم يمكن حذف القديم دون مقاطعة الخدمة.</li>
+</ul>
+<h3>10.2 استراتيجية إعادة المحاولة: لا علاقة لها بالنوم</h3>
+<p>إذا حصلت على 1 موازي في الطبقة المجانية، فسوف تواجه في الواقع ثلاث حالات:</p>
+<table>
+<tr><th>حالة</th><th>حالة HTTP</th><th>التعامل مع الاقتراحات</th></tr>
+<tr><td>حد المعدل</td><td class="no">429</td><td>يقرأ<code>Retry-After</code>الرأس، واتبعه، وما إلى ذلك.</td></tr>
+<tr><td>قائمة الانتظار (بطيئة للغاية)</td><td>200</td><td>يثبت<code>timeout=60s</code>، تعتبر المهلة بمثابة فشل احتياطي</td></tr>
+<tr><td>النموذج غير متوفر مؤقتا</td><td class="warn">500/503</td><td>الرجوع الفوري إلى عمليات التلقيح دون إعادة المحاولة</td></tr>
+</table>
+<pre><code># gen_image.py 加 retry decorator，但 429 唔應該 blind retry
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.Timeout,
+        requests.exceptions.HTTPError
+    ))
+)</code></pre>
+<p><b>النقاط الرئيسية:</b>429 للقراءة<code>Retry-After</code>وإلا فسيتم الدوس عليه بقوة أكبر.</p>
+<h3>10.3 العلاقة غير الخطية لخطوات التدفق × الخلايا العصبية</h3>
+<p>§2.1 57.6 خلية عصبية هي قيمة مكونة من 4 خطوات — الخطوات لها تأثير كبير على التكلفة:</p>
+<table>
+<tr><th>خطوات</th><th>~ الخلايا العصبية / تشانغ</th><th>جودة</th><th>السيناريوهات المقترحة</th></tr>
+<tr><td>1</td><td>~20</td><td>مستوى المسودة</td><td>معاينة سريعة وموجه الاختبار</td></tr>
+<tr><td>4</td><td>~58</td><td>متاح</td><td>القوة الرئيسية اليومية (توصية الدليل الأصلي)</td></tr>
+<tr><td>8</td><td>~110</td><td>أحسن</td><td>مخرجات مهمة</td></tr>
+<tr><td>20</td><td>~260</td><td>أفضل</td><td>نادرًا ما تكون هناك حاجة إليه، فمن الأفضل استخدام Flux-2-dev</td></tr>
+</table>
+<p>تقنية حفظ الخلايا العصبية: إنشاء دفعة (على سبيل المثال، 10 متغيرات في المرة الواحدة)، يمكنك استخدامها أولاً<code>step=1</code>للمعاينة، يختار المستخدمون الأفضل أولاً.<code>step=4/8</code>، حفظ الكثير من الخلايا العصبية.</p>
+<h3>10.4 القيود الخفية للتلقيح الاحتياطي</h3>
+<ul>
+<li><b>لا يوجد مفتاح ≠ غير محدود</b>— عنوان IP واحد له حد معدل ضمني (حوالي 10 req/min). إذا تم تجاوزها، فسوف تعود فارغة أو تكون بطيئة للغاية.</li>
+<li><b>لا يوجد جيش تحرير السودان</b>— في بعض الأحيان قد يظل معطلاً لعدة دقائق، ويحتاج المنطق الاحتياطي إلى التعامل مع المهلة.</li>
+<li><b>التوافق الفوري</b>- بناء جملة الوزن (على سبيل المثال<code>(...:1.2)</code>) قد لا يكون مدعومًا؛ يوصى بإبقاء المطالبة بسيطة وعدم استخدام بناء الجملة المتقدم.</li>
+</ul>
+<p>الترتيب الاحتياطي الموصى به:<b>تدفق CF → التلقيح → SD المحلي (إن وجد) → وصف النص بدلاً من ذلك</b>.</p>
+<h3>10.5 R2 وتناسق القيادة ثنائي المسار</h3>
+<ul>
+<li><b>نظام القيادة "اكتب وانسى"</b>- بمجرد نجاح التحميل، يكون قد اكتمل ولا يوجد مجموع اختباري.</li>
+<li><b>يمكن لـ R2 التحقق</b>- تحميل لاستخدامها لاحقا<code>head_object</code>اقرأ ETag وقارنه مع MD5 للملف المحلي.</li>
+</ul>
+<pre><code># gen_image.py 生成後寫 manifest.jsonl（每行一條，方便日後對賬）
+{"timestamp":"...","prompt":"...","drive_id":"...","r2_key":"...","md5":"...","model":"flux-1-schnell","neurons":57.6}</code></pre>
+<p>عندما يقوم تنظيف R2 بحذف الملفات القديمة، فمن الأفضل وضع علامة عليها مع البيان<code>deleted: true</code>، بدلاً من حذف إدخال البيان فعليًا والاحتفاظ بمسار التدقيق.</p>
+<h3>10.6 البيانات الوصفية للصورة: موجه كتابة EXIF</h3>
+<pre><code># 用 PIL 將 prompt、model、timestamp 寫入 PNG 嘅 tEXt chunk
+from PIL import Image, PngImagePlugin
+img = Image.open("/tmp/cat.png")
+metadata = PngImagePlugin.PngInfo()
+metadata.add_text("prompt", prompt)
+metadata.add_text("model", "flux-1-schnell")
+metadata.add_text("generated_at", datetime.utcnow().isoformat())
+img.save("/tmp/cat.png", pnginfo=metadata)</code></pre>
+<p>بهذه الطريقة، حتى في حالة فقدان البيان، يمكن قراءة الموجه الأصلي مرة أخرى من الصورة نفسها، وهو أمر مناسب لإعادة الإنتاج.</p>
+<h3>10.7 نقطة النهاية "المخفية" لـ CF Workers AI: ربط الذكاء الاصطناعي</h3>
+<p>يستخدم الدليل الأصلي واجهة برمجة التطبيقات المباشرة (<code>/ai/run/...</code>). إذا قمت بنشر Cloudflare Worker، فيمكنك استخدام ربط الذكاء الاصطناعي:</p>
+<pre><code>// worker.js
+const response = await env.AI.run(
+    '@cf/black-forest-labs/flux-1-schnell',
+    { prompt: "..." }
+)</code></pre>
+<p><b>فائدة:</b>يمكنك إدارة الرموز المميزة (يستخدم الربط أذونات الحساب)، والتخزين المؤقت، وتحديد المعدل، وطبقات المصادقة.<b>ضرر:</b>لنشر العمال، هناك طبقة إضافية من الأشعة تحت الحمراء. بالنسبة لحالة استخدام Hermes، يعد الاتصال المباشر بواجهة برمجة التطبيقات (API) بسيطًا بدرجة كافية؛ ولكن إذا تم فتح واجهة برمجة التطبيقات للاستخدام من قبل عدة أشخاص في المستقبل، فإن طريقة الربط ستسهل إدارة الحصة.</p>
+<div class="pit"><b>تلخيص:</b>يجب أن يكون التراجع عميقًا بدرجة كافية. تنطبق الدروس المستفادة من حصار OpenRouter Factory 3 أيضًا على CF (الطبقة المجانية لها حصة وحد للتزامن و500 متفرقة).<b>طبقة إضافية من النسخ الاحتياطي وطبقة أقل من تصحيح الأخطاء في وقت متأخر من الليل.</b></div>
+<div class="link-block" style="margin-top:16px">
+<h3>أدلة ذات صلة</h3>
+<div class="link-row"><span class="label">نشر أوراكل</span><a href="https://forumdata-collab.github.io/hermes-oracle-guide/">كيفية نشر وكيل Hermes على Oracle VM مجانًا</a></div>
+<div class="link-row"><span class="label">تحميل الموسيقى</span><a href="https://forumdata-collab.github.io/hermes-mp3-guide/">دليل تنزيل موسيقى Hermes Agent (YouTube → MP3)</a></div>
+<div class="link-row"><span class="label">الإنترنت العلمي</span><a href="https://forumdata-collab.github.io/hermes-gfw-guide/">ممارسة الإنترنت العلمي Oracle VM + Cloudflare ثنائي القناة</a></div>
+<div class="link-row"><span class="label">وكيل هيرميس</span><a href="https://github.com/NousResearch/hermes-agent" target="_blank">github.com/NousResearch/hermes-agent</a> <span class="badge ok">معهد ماساتشوستس للتكنولوجيا مفتوحة المصدر</span></div>
+</div>
+</main>
+<footer><div class="wrap">ملحق وكيل Hermes · 01/08/2026 (الإصدار 2: إضافة اقتراحات تكميلية جاهزة للإنتاج) · تم التسجيل بواسطة وكيل Hermes أثناء عملية الترحيل الحقيقية · تم اختبار جميع التقنيات</div></footer>
+</body>
+</html>
