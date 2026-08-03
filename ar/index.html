@@ -137,6 +137,27 @@ auxiliary:
 <tr><td>🥈 النسخ الاحتياطي</td><td>جيما-4-26ب-a4b-it (CF)</td><td>نفس النموذج ولكن مضيفين مختلفين</td><td class="ok">طبيعي</td></tr>
 <tr><td>❌</td><td>Moondream3.1/llava-1.5 (CF)</td><td>9ب/7ب</td><td class="no">عودة فارغة / 400</td></tr>
 </table>
+
+<h3>4.1 تطبيق عملي: صور الجداول ← بيانات منظمة (مجلة الاختيار)</h3>
+<p>أكثر سيناريو عملي لخط أنابيب الرؤية: <b>قراءة صور الجداول مباشرة وإخراج JSON منظم</b>. جداول العلامات التجارية في تقارير اختبارات مجلة الاختيار (العلامة/الطراز/السعر/التقييم) غالباً ما توجد فقط كصور صفحات PDF، أو تخرج مشوهة من OCR — القراءة بالرؤية هي الأضمن. نفس تنسيق رسائل OpenAI المتوافق (<code>image_url</code> data URL base64)؛ gemma-4-26b من CF يعمل عبر <code>/ai/run</code> مباشرة دون نشر Worker.</p>
+<pre><code># صورة جدول ← JSON (CF gemma-4 مباشرة)
+import base64, urllib.request, json
+b64 = base64.b64encode(open("p5.png", "rb").read()).decode()
+body = {"messages": [{"role": "user", "content": [
+    {"type": "text", "text": PROMPT},
+    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}]}]}
+# POST /accounts/$CF_ACCOUNT_ID/ai/run/@cf/google/gemma-4-26b-a4b-it</code></pre>
+<p>اختبار فعلي (2026-08-03، صفحة حقيقية لـ 14 خدمة تخزين سحابي):</p>
+<table>
+<tr><th>النموذج</th><th>جدول اختباري</th><th>صفحات الاختيار الحقيقية</th><th>ملاحظات</th></tr>
+<tr><td><b>gemma-4-26b-a4b-it (CF)</b></td><td class="ok">✅ 100%</td><td class="ok">✅ OneDrive / SurDoc...</td><td>ضمن النيورونات المجانية، 10 آلاف/يوم</td></tr>
+<tr><td>grok-4.5 (متوافق مع OpenAI)</td><td class="ok">✅ 100%</td><td>—</td><td>يعمل أيضاً عبر API مدفوع</td></tr>
+<tr><td>deepseek-v4-flash / pro</td><td class="no">❌ يستقبل الصورة لكنه أعمى</td><td class="no">❌</td><td>نموذج نصي فقط، يتجاهل الصور</td></tr>
+<tr><td>qwen3-vl-30b (CF)</td><td class="no">❌ 400</td><td class="no">❌</td><td>مدرج لكن غير متاح في الخطة (No route)</td></tr>
+</table>
+<p>أساسيات الـ prompt: JSON صارم، أسماء العلامات بالصينية أولاً، الأسعار أرقام فقط (<code>HK$1,299 → 1299</code>)، <code>is_recommended</code>=أعلى تقييم (وكل المتعادلين)، <code>is_warning</code>=مسرطن/تجاوز الحد، أخرج <code>[]</code> عند غياب الجدول. الجداول تمتد عبر الصفحات ← أرسل 3 صفحات دفعة وادمج النتائج ثم أزل التكرار.</p>
+<div class="pit"><b>⚠️ ثلاث مزالق لاستخراج الجداول:</b> ① <b>max_tokens ≥8000</b> — الجداول الطويلة (58 صفاً) تحتاج &gt;4000 رمزاً للمخرجات؛ <code>max_tokens=4000</code> يقصّ JSON في المنتصف → فشل التحليل (flash و pro كلاهما وقعا فيه)؛ ② <b>هلوسة الرؤية</b> — النماذج تختلق طُرزاً ودرجات؛ تحقق دائماً مع سرد المقال وعدد العينات قبل الثقة؛ ③ <b>حدد صفحة الجدول</b> — الجدول عادة في منتصف/آخر المقال (p5/p6)؛ جرّب الصفحات أو استخدم السرد لتحديدها أولاً.</div>
+
 <h2 id="store">5 · نظام الأرشفة (Drive + R2 ثنائي المسار)</h2>
 <div class="grid">
 <div class="box"><b>📁 جوجل درايف (5 تيرابايت)</b><small>في كل مرة يتم إنتاج صورة، يتم تحميلها تلقائيًا.<code>AI-images/YYYY-MM/</code>، والكتابة<code>images_index.jsonl</code>سجل موجه + رابط محرك الأقراص. استخدم Google-workspace OAuth الحالي، ولا يوجد إعداد جديد.</small></div>

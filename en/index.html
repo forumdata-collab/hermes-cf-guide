@@ -137,6 +137,27 @@ auxiliary:
 <tr><td>🥈 Backup</td><td>gemma-4-26b-a4b-it (CF)</td><td>The same model but different hosts</td><td class="ok">normal</td></tr>
 <tr><td>❌</td><td>moondream3.1/llava-1.5 (CF)</td><td>9B/7B</td><td class="no">Empty return / 400</td></tr>
 </table>
+
+<h3>4.1 Practical: table images → structured data (CHOICE magazine)</h3>
+<p>The most useful vision-pipeline scenario: <b>read table images directly and output structured JSON</b>. CHOICE (消委會《選擇》) test-report brand tables (brand/model/price/rating) often exist only as PDF page renders, or come out garbled from OCR — vision reading is the most reliable route. The same OpenAI-compatible messages format (<code>image_url</code> data URL base64) works; CF gemma-4-26b via direct <code>/ai/run</code> calls, no Worker deployment needed.</p>
+<pre><code># table image → JSON (CF gemma-4 direct, no Worker)
+import base64, urllib.request, json
+b64 = base64.b64encode(open("p5.png", "rb").read()).decode()
+body = {"messages": [{"role": "user", "content": [
+    {"type": "text", "text": PROMPT},
+    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}]}]}
+# POST /accounts/$CF_ACCOUNT_ID/ai/run/@cf/google/gemma-4-26b-a4b-it</code></pre>
+<p>Verified 2026-08-03 (real table pages, 14 cloud-storage services):</p>
+<table>
+<tr><th>Model</th><th>Synthetic test table</th><th>Real CHOICE pages</th><th>Notes</th></tr>
+<tr><td><b>gemma-4-26b-a4b-it (CF)</b></td><td class="ok">✅ 100%</td><td class="ok">✅ OneDrive / SurDoc etc.</td><td>Within free neurons, 10k/day</td></tr>
+<tr><td>grok-4.5 (OpenAI-compatible API)</td><td class="ok">✅ 100%</td><td>—</td><td>Paid API works too</td></tr>
+<tr><td>deepseek-v4-flash / pro</td><td class="no">❌ receives image but blind</td><td class="no">❌</td><td>Text-only model, ignores images</td></tr>
+<tr><td>qwen3-vl-30b (CF)</td><td class="no">❌ 400</td><td class="no">❌</td><td>Listed but not usable on plan (No route)</td></tr>
+</table>
+<p>Prompt essentials: strict JSON array, Chinese brand names first, digits-only prices (<code>HK$1,299 → 1299</code>), <code>is_recommended</code>=top score (all ties), <code>is_warning</code>=carcinogens/over-limit, output <code>[]</code> when there is no table. Tables span pages → chunk 3 pages per call and merge, then dedupe.</p>
+<div class="pit"><b>⚠️ Three table-extraction traps:</b> ① <b>max_tokens ≥8000</b> — long tables (58 rows) need &gt;4000 tokens of output; <code>max_tokens=4000</code> truncates mid-JSON → parse fail (both flash and pro hit this); ② <b>vision hallucination</b> — models invent model numbers/scores; always cross-check against the article narrative and sample count; ③ <b>locate the table page</b> — tables usually sit mid-to-late article (p5/p6); probe pages or use the narrative to locate first.</div>
+
 <h2 id="store">5 · Archive system (Drive + R2 dual track)</h2>
 <div class="grid">
 <div class="box"><b>📁 Google Drive (5TB)</b><small>Every time a picture is produced, it is automatically uploaded.<code>AI-images/YYYY-MM/</code>, and write<code>images_index.jsonl</code>Record prompt + Drive link. Use existing google-workspace OAuth, no new setup.</small></div>

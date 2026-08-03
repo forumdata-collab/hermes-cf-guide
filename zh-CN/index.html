@@ -137,6 +137,27 @@ auxiliary:
 <tr><td>🥈 后备</td><td>gemma-4-26b-a4b-it（CF）</td><td>同一 model 唔同 host</td><td class="ok">正常</td></tr>
 <tr><td>❌</td><td>moondream3.1 / llava-1.5（CF）</td><td>9B / 7B</td><td class="no">空回传 / 400</td></tr>
 </table>
+
+<h3>4.1 实战：表格图 → 结构化数据（消委会《选择》月刊）</h3>
+<p>vision 管线最实用的场景：<b>直接读表格图，输出结构化 JSON</b>。消委会《选择》测试报告的品牌表（牌子/型号/售价/评分）很多时只存在于 PDF 页面图，或者 OCR 出来全错 — 用 vision 读图最稳。方法是同一 OpenAI-compatible messages 格式（<code>image_url</code> data URL base64），CF gemma-4-26b 直连 <code>/ai/run</code> 就做到，不用部署 Worker。</p>
+<pre><code># 表格图 → JSON（CF gemma-4 直连，无需 Worker）
+import base64, urllib.request, json
+b64 = base64.b64encode(open("p5.png", "rb").read()).decode()
+body = {"messages": [{"role": "user", "content": [
+    {"type": "text", "text": PROMPT},
+    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}]}]}
+# POST /accounts/$CF_ACCOUNT_ID/ai/run/@cf/google/gemma-4-26b-a4b-it</code></pre>
+<p>实测（2026-08-03，14 款云存储服务真实表格页）：</p>
+<table>
+<tr><th>模型</th><th>合成测试表</th><th>真实消委会页</th><th>备注</th></tr>
+<tr><td><b>gemma-4-26b-a4b-it（CF）</b></td><td class="ok">✅ 100%</td><td class="ok">✅ OneDrive / SurDoc 等</td><td>免费 neurons 内，每日 10k</td></tr>
+<tr><td>grok-4.5（OpenAI 兼容 API）</td><td class="ok">✅ 100%</td><td>—</td><td>收费 API 都得</td></tr>
+<tr><td>deepseek-v4-flash / pro</td><td class="no">❌ 收图看不到</td><td class="no">❌</td><td>纯文字 model，忽略图像</td></tr>
+<tr><td>qwen3-vl-30b（CF）</td><td class="no">❌ 400</td><td class="no">❌</td><td>list 有但 plan 用不到（No route）</td></tr>
+</table>
+<p>提示词关键：严格 JSON array、品牌名中文优先、价格只取数字（<code>HK$1,299 → 1299</code>）、<code>is_recommended</code>=总评最高（并列都要）、<code>is_warning</code>=致癌物/超标、没有品牌表输出 <code>[]</code>。表格横跨多页 → 每 3 页一组 chunk，合并再去除重。</p>
+<div class="pit"><b>⚠️ 表格提取三个坑：</b>① <b>max_tokens 要 ≥8000</b> — 长表格（58 行）的合法回应 &gt;4000 tokens，<code>max_tokens=4000</code> 会在 JSON 中间截断 → parse fail（flash 同 pro 都中）；② <b>vision 幻觉</b> — 读表格会编造型号/分数，必须跟文章叙述、样本数交叉验证才信；③ <b>表格页要找位</b> — 表通常在文章中后段（p5/p6），逐页试或者先用文字叙述定位。</div>
+
 <h2 id="store">5 · 存档系统（Drive + R2 双轨）</h2>
 <div class="grid">
 <div class="box"><b>📁 Google Drive（5TB）</b><small>每次生图自动 upload 去<code>AI-images/YYYY-MM/</code>，并写入<code>images_index.jsonl</code>记录 prompt + Drive link。用现有 google-workspace OAuth，零新设定。</small></div>

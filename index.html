@@ -144,6 +144,26 @@ auxiliary:
 <tr><td>❌</td><td>moondream3.1 / llava-1.5（CF）</td><td>9B / 7B</td><td class="no">空回傳 / 400</td></tr>
 </table>
 
+<h3>4.1 實戰：表格圖 → 結構化數據（消委會《選擇》月刊）</h3>
+<p>vision 管線最實用嘅場景：<b>直接讀表格圖，輸出結構化 JSON</b>。消委會《選擇》測試報告嘅品牌表（牌子/型號/售價/評分）好多時只存在於 PDF 頁面圖，或者 OCR 出嚟錯晒 — 用 vision 讀圖最穩陣。方法係同一 OpenAI-compatible messages 格式（<code>image_url</code> data URL base64），CF gemma-4-26b 直連 <code>/ai/run</code> 就做到，唔使部署 Worker。</p>
+<pre><code># 表格圖 → JSON（CF gemma-4 直連，無需 Worker）
+import base64, urllib.request, json
+b64 = base64.b64encode(open("p5.png", "rb").read()).decode()
+body = {"messages": [{"role": "user", "content": [
+    {"type": "text", "text": PROMPT},
+    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}]}]}
+# POST /accounts/$CF_ACCOUNT_ID/ai/run/@cf/google/gemma-4-26b-a4b-it</code></pre>
+<p>實測（2026-08-03，14 款雲端儲存服務真實表格頁）：</p>
+<table>
+<tr><th>模型</th><th>合成測試表</th><th>真實消委會頁</th><th>備註</th></tr>
+<tr><td><b>gemma-4-26b-a4b-it（CF）</b></td><td class="ok">✅ 100%</td><td class="ok">✅ OneDrive / SurDoc 等</td><td>免費 neurons 內，每日 10k</td></tr>
+<tr><td>grok-4.5（OpenAI 兼容 API）</td><td class="ok">✅ 100%</td><td>—</td><td>收費 API 都得</td></tr>
+<tr><td>deepseek-v4-flash / pro</td><td class="no">❌ 收圖睇唔到</td><td class="no">❌</td><td>純文字 model，忽略圖像</td></tr>
+<tr><td>qwen3-vl-30b（CF）</td><td class="no">❌ 400</td><td class="no">❌</td><td>list 有但 plan 用唔到（No route）</td></tr>
+</table>
+<p>提示詞關鍵：嚴格 JSON array、品牌名中文優先、價格只取數字（<code>HK$1,299 → 1299</code>）、<code>is_recommended</code>=總評最高（並列都要）、<code>is_warning</code>=致癌物/超標、冇品牌表輸出 <code>[]</code>。表格橫跨多頁 → 每 3 頁一組 chunk，合併再去除重。</p>
+<div class="pit"><b>⚠️ 表格提取三個坑：</b>① <b>max_tokens 要 ≥8000</b> — 長表格（58 行）嘅合法回應 &gt;4000 tokens，<code>max_tokens=4000</code> 會喺 JSON 中間截斷 → parse fail（flash 同 pro 都中）；② <b>vision 幻覺</b> — 讀表格會編造型號/分數，必須同文章敘述、樣本數交叉驗證先信；③ <b>表格頁要搵位</b> — 表通常喺文章中後段（p5/p6），逐頁試或者先用文字敘述定位。</div>
+
 <h2 id="store">5 · 存檔系統（Drive + R2 雙軌）</h2>
 <div class="grid">
 <div class="box"><b>📁 Google Drive（5TB）</b><small>每次生圖自動 upload 去 <code>AI-images/YYYY-MM/</code>，並寫入 <code>images_index.jsonl</code> 記錄 prompt + Drive link。用現有 google-workspace OAuth，零新設定。</small></div>
